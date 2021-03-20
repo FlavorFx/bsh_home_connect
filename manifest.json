@@ -1,0 +1,13 @@
+{
+  "domain": "home_connect_neo",
+  "name": "Home Connect Neo",
+  "config_flow": true,
+  "documentation": "https://www.home-assistant.io/integrations/home_connect_neo",
+  "requirements": ["requests_oauthlib==1.3.0"],
+  "ssdp": [],
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": ["http"],
+  "codeowners": ["@flavorfx"],
+  "version": "0.0.1"
+}

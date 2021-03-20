@@ -1,0 +1,30 @@
+{
+    "title": "Home Connect Neo",
+
+    "config": {
+        "step": {
+            "user": {
+                "title": "Home Connect",
+                "description": "If you need help with the configuration have a look here: https://github.com/custom-components/home_connect_neo",
+                "data": {
+                    "client_id": "Client ID",
+                    "client_secret": "Client Secret"
+                }
+            },
+            "pick_implementation": {
+                "title": "Pick Authentication Method"
+            }
+        },
+        "error": {
+            "auth": "Client ID/Client Secret is not valid."
+        },
+        "abort": {
+            "authorize_url_timeout": "Timeout generating authorize URL.",
+            "missing_configuration": "The component is not configured. Please follow the documentation.",
+            "no_url_available": "No URL available. For information about this error, [check the help section]({docs_url})"
+        },
+        "create_entry": {
+            "default": "Successfully authenticated"
+        }
+    }
+}
