@@ -1,0 +1,6 @@
+{
+  "name": "Home Connect Neo",
+  "domains": ["sensor", "switch", "binary_sensor", "light"],
+  "render_readme": true,
+  "homeassistant": "0.118.0"
+}
