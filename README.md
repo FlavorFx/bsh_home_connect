@@ -34,18 +34,7 @@ ui-lovelace.yaml
 
 ```
 type: 'custom:vertical-stack-in-card'
-title: Waschkeller
 cards:
-  - type: entities
-    entities:
-      - entity: binary_sensor.washing_maschine
-      - entity: binary_sensor.clothes_dryer
-    state_color: true
-    show_header_toggle: false
-    card_mod:
-      style: |
-        ha-card { margin-top: -30px; }
-  - type: divider
   - type: conditional
     conditions:
       - entity: binary_sensor.waschmaschine_power
@@ -69,7 +58,7 @@ cards:
       state_color: false
       card_mod:
         style: |
-          ha-card { margin-top: -0px; }
+          ha-card { margin-top: -10px; }
   - type: conditional
     conditions:
       - entity: binary_sensor.waschmaschine_power
