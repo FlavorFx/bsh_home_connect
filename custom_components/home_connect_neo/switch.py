@@ -9,7 +9,6 @@ from .homeconnect import HomeConnectError
 _LOGGER = logging.getLogger(__name__)
 
 
-###############################################################################
 async def async_setup_entry(hass, config_entry, async_add_entities):
     """Add switch sensor in HA."""
 
@@ -30,7 +29,6 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     async_add_entities(entities, True)
 
 
-# -----------------------------------------------------------------------------
 class HomeConnectSwitch(HomeConnectEntity, SwitchEntity):
     """Switch class for Home Connect."""
 

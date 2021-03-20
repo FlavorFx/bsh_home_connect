@@ -15,7 +15,6 @@ end_of_field = re.compile(r"\r\n\r\n|\r\r|\n\n")
 _LOGGER = logging.getLogger("homeconnect.sseclient")
 
 
-# -----------------------------------------------------------------------------
 class SSEClient(object):
     def __init__(self, url, last_id=None, retry=3000, session=None, chunk_size=1024, **kwargs):
         self.url = url
@@ -104,7 +103,6 @@ class SSEClient(object):
         return msg
 
 
-# -----------------------------------------------------------------------------
 class Event(object):
 
     sse_line_pattern = re.compile("(?P<name>[^:]*):?( ?(?P<value>.*))?")

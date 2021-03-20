@@ -8,7 +8,6 @@ from .entity import HomeConnectEntity
 _LOGGER = logging.getLogger(__name__)
 
 
-###############################################################################
 async def async_setup_entry(hass, config_entry, async_add_entities):
     """Add sensors in HA."""
 
@@ -29,7 +28,6 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     async_add_entities(entities, True)
 
 
-# -----------------------------------------------------------------------------
 class HomeConnectSensor(HomeConnectEntity, Entity):
     """Sensor class for Home Connect."""
 

@@ -8,7 +8,7 @@ from .homeconnect import HomeConnectError
 
 _LOGGER = logging.getLogger(__name__)
 
-# -----------------------------------------------------------------------------
+
 class Appliance:
     """Home Connect generic device."""
 
@@ -59,7 +59,7 @@ class Appliance:
         return self.lights
 
 
-# -----------------------------------------------------------------------------
+
 class Washer(Appliance):
     """Washer."""
 
@@ -84,7 +84,6 @@ class Washer(Appliance):
         self.switches.append({"device": self, "description": "Start"})
 
 
-# -----------------------------------------------------------------------------
 class Dryer(Appliance):
     """Dryer."""
 
@@ -108,7 +107,6 @@ class Dryer(Appliance):
         self.switches.append({"device": self, "description": "Start"})
 
 
-# -----------------------------------------------------------------------------
 class WasherDryer(Appliance):
     """Washer Dryer."""
 
@@ -116,7 +114,6 @@ class WasherDryer(Appliance):
         super().__init__(hass, appliance)
 
 
-# -----------------------------------------------------------------------------
 class Dishwasher(Appliance):
     """Dishwasher."""
 
@@ -124,7 +121,6 @@ class Dishwasher(Appliance):
         super().__init__(hass, appliance)
 
 
-# -----------------------------------------------------------------------------
 class Refrigerator(Appliance):
     """Refrigerator."""
 
@@ -132,7 +128,6 @@ class Refrigerator(Appliance):
         super().__init__(hass, appliance)
 
 
-# -----------------------------------------------------------------------------
 class WineCooler(Appliance):
     """Wine Cooler."""
 
@@ -140,7 +135,6 @@ class WineCooler(Appliance):
         super().__init__(hass, appliance)
 
 
-# -----------------------------------------------------------------------------
 class Freezer(Appliance):
     """Freezer."""
 
@@ -148,7 +142,6 @@ class Freezer(Appliance):
         super().__init__(hass, appliance)
 
 
-# -----------------------------------------------------------------------------
 class FridgeFreezer(Appliance):
     """FridgeFreezer."""
 
@@ -156,7 +149,6 @@ class FridgeFreezer(Appliance):
         super().__init__(hass, appliance)
 
 
-# -----------------------------------------------------------------------------
 class Oven(Appliance):
     """Oven."""
 
@@ -164,7 +156,6 @@ class Oven(Appliance):
         super().__init__(hass, appliance)
 
 
-# -----------------------------------------------------------------------------
 class CoffeeMaker(Appliance):
     """Coffee Maker."""
 
@@ -172,7 +163,6 @@ class CoffeeMaker(Appliance):
         super().__init__(hass, appliance)
 
 
-# -----------------------------------------------------------------------------
 class Hood(Appliance):
     """Hood."""
 
@@ -180,7 +170,6 @@ class Hood(Appliance):
         super().__init__(hass, appliance)
 
 
-# -----------------------------------------------------------------------------
 class Hob(Appliance):
     """Hob."""
 

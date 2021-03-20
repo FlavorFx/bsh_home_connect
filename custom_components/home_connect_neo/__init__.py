@@ -23,14 +23,12 @@ CONFIG_SCHEMA = vol.Schema({DOMAIN: vol.Schema({vol.Required(CONF_CLIENT_ID): cv
 PLATFORMS = ["binary_sensor", "sensor", "switch"]
 
 
-###############################################################################
 async def async_setup(hass: HomeAssistant, config: dict):
     """Old way to set up integrations."""
 
     return True
 
 
-###############################################################################
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Set up Home Connect from a config entry."""
 
@@ -111,7 +109,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     return True
 
 
-###############################################################################
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Unload a config entry."""
 

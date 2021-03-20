@@ -8,7 +8,7 @@ from .const import DOMAIN, SIGNAL_UPDATE_ENTITIES
 
 _LOGGER = logging.getLogger(__name__)
 
-# -----------------------------------------------------------------------------
+
 class HomeConnectEntity(Entity):
     """Generic Home Connect entity base class."""
 

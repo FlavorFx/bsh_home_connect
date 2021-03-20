@@ -20,7 +20,7 @@ _LOGGER = logging.getLogger("homeconnect")
 
 TIMEOUT_S = 120
 
-# -----------------------------------------------------------------------------
+
 class watch_dog_timer:
     def __init__(self, time, callback):
         self.callback = callback
@@ -66,12 +66,10 @@ class watch_dog_timer:
         self.stopped_event.set()
 
 
-# -----------------------------------------------------------------------------
 class HomeConnectError(Exception):
     pass
 
 
-# -----------------------------------------------------------------------------
 class HomeConnectAPI:
     def __init__(self, token: Optional[Dict[str, str]] = None, client_id: str = None, client_secret: str = None, redirect_uri: str = None, token_updater: Optional[Callable[[str], None]] = None):
         self.host = URL_API
@@ -167,7 +165,6 @@ class HomeConnectAPI:
         return [HomeConnectAppliance(self, **app) for app in data["homeappliances"]]
 
 
-# -----------------------------------------------------------------------------
 class HomeConnectAppliance:
     """Class representing a single appliance."""
 

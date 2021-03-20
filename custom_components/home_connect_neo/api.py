@@ -12,7 +12,6 @@ from .homeconnect import HomeConnectAPI, HomeConnectError
 _LOGGER = logging.getLogger(__name__)
 
 
-# -----------------------------------------------------------------------------
 class ConfigEntryAuth(HomeConnectAPI):
     """Provide Home Connect authentication tied to an OAuth2 based config entry."""
 

@@ -10,7 +10,7 @@ from .const import DOMAIN, NAME
 OAUTH2_AUTHORIZE = "https://api.home-connect.com/security/oauth/authorize"
 OAUTH2_TOKEN = "https://api.home-connect.com/security/oauth/token"
 
-# -----------------------------------------------------------------------------
+
 class OAuth2FlowHandler(config_entry_oauth2_flow.AbstractOAuth2FlowHandler, domain=DOMAIN):
     """Config flow to handle Home Connect OAuth2 authentication."""
 
