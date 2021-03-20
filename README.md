@@ -15,7 +15,7 @@ The `home connect neo` integration is a component for Home Assistant to enable t
 
 1. If you have not yet installed HACS, go get it at https://hacs.xyz/ and walk through the installation and configuration.
 
-2. Then find the `home connect neo` integration in HACS and install it.
+2. On the top right corner click on the three vertical dots and select user defined repositories. Enter https://github.com/FlavorFx/home_connect_neo and hit the add button. Then find the `home connect neo` integration and install it.
 
 3. Restart Home Assistant!
 
