@@ -59,7 +59,6 @@ class Appliance:
         return self.lights
 
 
-
 class Washer(Appliance):
     """Washer."""
 
@@ -112,6 +111,24 @@ class WasherDryer(Appliance):
 
     def __init__(self, hass, appliance):
         super().__init__(hass, appliance)
+        self.binary_sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.RemoteControlStartAllowed", "description": "Remote Control", "device_class": None},
+                {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
+            ]
+        )
+        self.sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
+                {"device": self, "key": "BSH.Common.Option.RemainingProgramTime", "description": "Remaining Time", "unit": TIME_SECONDS, "icon": "mdi:update", "device_class": None},
+                {"device": self, "key": "BSH.Common.Option.ProgramProgress", "description": "Progress", "unit": PERCENTAGE, "icon": "mdi:progress-clock", "device_class": None},
+                {"device": self, "key": "BSH.Common.Root.SelectedProgram", "description": "Program", "unit": None, "icon": "mdi:format-list-bulleted", "device_class": "home_connect_washer_program"},
+                {"device": self, "key": "LaundryCare.Washer.Option.Temperature", "description": "Temperature", "unit": None, "icon": "mdi:coolant-temperature", "device_class": "home_connect_washer_temperatur"},
+                {"device": self, "key": "LaundryCare.Washer.Option.SpinSpeed", "description": "Spin Speed", "unit": None, "icon": "mdi:rotate-right", "device_class": "home_connect_washer_spin_speed"},
+                {"device": self, "key": "LaundryCare.Dryer.Option.DryingTarget", "description": "Drying Target", "unit": None, "icon": "mdi:water-percent", "device_class": "home_connect_drying_target"},
+            ]
+        )
+        self.switches.append({"device": self, "description": "Start"})
 
 
 class Dishwasher(Appliance):
@@ -119,6 +136,18 @@ class Dishwasher(Appliance):
 
     def __init__(self, hass, appliance):
         super().__init__(hass, appliance)
+        self.binary_sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.RemoteControlStartAllowed", "description": "Remote Control", "device_class": None},
+                {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
+            ]
+        )
+        self.sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
+            ]
+        )
+        self.switches.append({"device": self, "description": "Start"})
 
 
 class Refrigerator(Appliance):
@@ -126,6 +155,11 @@ class Refrigerator(Appliance):
 
     def __init__(self, hass, appliance):
         super().__init__(hass, appliance)
+        self.binary_sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
+            ]
+        )
 
 
 class WineCooler(Appliance):
@@ -133,6 +167,11 @@ class WineCooler(Appliance):
 
     def __init__(self, hass, appliance):
         super().__init__(hass, appliance)
+        self.binary_sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
+            ]
+        )
 
 
 class Freezer(Appliance):
@@ -140,6 +179,11 @@ class Freezer(Appliance):
 
     def __init__(self, hass, appliance):
         super().__init__(hass, appliance)
+        self.binary_sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
+            ]
+        )
 
 
 class FridgeFreezer(Appliance):
@@ -147,6 +191,11 @@ class FridgeFreezer(Appliance):
 
     def __init__(self, hass, appliance):
         super().__init__(hass, appliance)
+        self.binary_sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
+            ]
+        )
 
 
 class Oven(Appliance):
@@ -154,6 +203,17 @@ class Oven(Appliance):
 
     def __init__(self, hass, appliance):
         super().__init__(hass, appliance)
+        self.binary_sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.RemoteControlStartAllowed", "description": "Remote Control", "device_class": None},
+            ]
+        )
+        self.sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
+            ]
+        )
+        self.switches.append({"device": self, "description": "Start"})
 
 
 class CoffeeMaker(Appliance):
@@ -161,17 +221,58 @@ class CoffeeMaker(Appliance):
 
     def __init__(self, hass, appliance):
         super().__init__(hass, appliance)
+        self.binary_sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.RemoteControlStartAllowed", "description": "Remote Control", "device_class": None},
+            ]
+        )
+        self.sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
+            ]
+        )
+        self.switches.append({"device": self, "description": "Start"})
 
 
 class Hood(Appliance):
-    """Hood."""
+    """Hood. / Dunstabzugshaube"""
 
     def __init__(self, hass, appliance):
         super().__init__(hass, appliance)
+        self.binary_sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.RemoteControlStartAllowed", "description": "Remote Control", "device_class": None},
+            ]
+        )
+        self.switches.append({"device": self, "description": "Start"})
 
 
 class Hob(Appliance):
-    """Hob."""
+    """Hob. / Herd"""
 
     def __init__(self, hass, appliance):
         super().__init__(hass, appliance)
+        self.sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
+            ]
+        )
+
+
+class WarmingDrawer(Appliance):
+    """WarmingDrawer."""
+
+    def __init__(self, hass, appliance):
+        super().__init__(hass, appliance)
+        self.binary_sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.RemoteControlStartAllowed", "description": "Remote Control", "device_class": None},
+                {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
+            ]
+        )
+        self.sensors.extend(
+            [
+                {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
+            ]
+        )
+        self.switches.append({"device": self, "description": "Start"})

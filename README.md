@@ -81,17 +81,17 @@ cards:
 | --------------- | ----------------- |
 | `Washer`        | supported         |
 | `Dryer`         | supported |
-| `Washer Dryer`   | rudimentary |
-| `Refrigerator`  | rudimentary |
-| `Wine Cooler`    | rudimentary |
-| `Freezer`       | rudimentary |
-| `Dishwasher`    | rudimentary |
-| `Fridge Freezer` | rudimentary |
-| `Oven`          | rudimentary |
-| `Coffee Maker`   | rudimentary |
+| `Washer Dryer`   | supported |
+| `Refrigerator`  | basic |
+| `Wine Cooler`    | basic |
+| `Freezer`       | basic |
+| `Dishwasher`    | basic |
+| `Fridge Freezer` | basic |
+| `Oven`          | basic |
+| `Coffee Maker`   | basic |
 | `Hood`          | rudimentary |
 | `Hob`           | rudimentary |
-| `Warming Drawer` | not supported yet |
+| `Warming Drawer` | rudimentary |
 | `Cleaning Robot` | not supported yet |
 | `Cook Processor` | not supported yet |
 
