@@ -77,7 +77,7 @@ class HomeConnectSensor(HomeConnectEntity, Entity):
         elif "value" not in status[self._key]:
             self._state = None
         else:
-            if self._key in ["BSH.Common.Status.OperationState", "BSH.Common.Option.RemainingProgramTime", "BSH.Common.Option.ProgramProgress", "BSH.Common.Root.SelectedProgram", "LaundryCare.Washer.Option.Temperature", "LaundryCare.Washer.Option.SpinSpeed"]:
+            if self._key in ["BSH.Common.Status.OperationState", "BSH.Common.Option.RemainingProgramTime", "BSH.Common.Option.ProgramProgress", "BSH.Common.Root.SelectedProgram", "LaundryCare.Washer.Option.Temperature", "LaundryCare.Washer.Option.SpinSpeed", "LaundryCare.Dryer.Option.DryingTarget"]:
                 self._state = status[self._key].get("value")
             else:
                 _LOGGER.warning("Unexpected value for key: %s", self._key)
