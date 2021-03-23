@@ -4,6 +4,7 @@ import logging
 from homeassistant.components.light import LightEntity  # pylint: disable=import-error, no-name-in-module
 from .const import DOMAIN, SIGNAL_UPDATE_ENTITIES
 from .entity import HomeConnectEntity
+from .homeconnect import HomeConnectError
 
 _LOGGER = logging.getLogger(__name__)
 

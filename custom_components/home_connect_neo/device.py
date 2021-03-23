@@ -148,6 +148,7 @@ class Dishwasher(Appliance):
             ]
         )
         self.switches.append({"device": self, "description": "Start"})
+        self.lights.append({"device": self, "description": "Ambient Light"})
 
 
 class Refrigerator(Appliance):
@@ -245,6 +246,12 @@ class Hood(Appliance):
             ]
         )
         self.switches.append({"device": self, "description": "Start"})
+        self.lights.extend(
+            [
+                {"device": self, "description": "Light"},
+                {"device": self, "description": "Ambient Light"},
+            ]
+        )
 
 
 class Hob(Appliance):
