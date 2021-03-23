@@ -222,26 +222,42 @@ class HomeConnectAppliance:
             except (HomeConnectError, ValueError) as err:  # pylint: disable=unused-variable
                 _LOGGER.debug("Unable to fetch appliance settings. %s", err)
 
-            # Get selected program
-            try:
-                selected_program = self.get_programs_selected()
-                self.status["BSH.Common.Root.SelectedProgram"] = {"value": selected_program.get("key")}
-            except (HomeConnectError, ValueError) as err:  # pylint: disable=unused-variable
-                _LOGGER.debug("Unable to fetch selected program. %s", err)
+            if self.type in ["Washer", "Dryer", "WasherDryer"]:
+                # Get selected program
+                try:
+                    selected_program = self.get_programs_selected()
+                    self.status["BSH.Common.Root.SelectedProgram"] = {"value": selected_program.get("key")}
+                except (HomeConnectError, ValueError) as err:  # pylint: disable=unused-variable
+                    _LOGGER.debug("Unable to fetch selected program. %s", err)
 
-            # Get temperature from selected program
-            try:
-                temperature = self.get_programs_selected_options_with_key("LaundryCare.Washer.Option.Temperature")["value"]
-                self.status["LaundryCare.Washer.Option.Temperature"] = {"value": temperature}
-            except (HomeConnectError, ValueError) as err:  # pylint: disable=unused-variable
-                _LOGGER.debug("Unable to fetch selected program. %s", err)
+                # Get active program
+                try:
+                    active_program = self.get_programs_active()
+                    self.status["BSH.Common.Root.ActiveProgram"] = {"value": active_program.get("key")}
+                except (HomeConnectError, ValueError) as err:  # pylint: disable=unused-variable
+                    _LOGGER.debug("Unable to fetch selected program. %s", err)
 
-            # Get spin speed from selected program
-            try:
-                spin_speed = self.get_programs_selected_options_with_key("LaundryCare.Washer.Option.SpinSpeed")["value"]
-                self.status["LaundryCare.Washer.Option.SpinSpeed"] = {"value": spin_speed}
-            except (HomeConnectError, ValueError) as err:  # pylint: disable=unused-variable
-                _LOGGER.debug("Unable to fetch selected program. %s", err)
+            if self.type in ["Washer", "WasherDryer"]:
+                # Get temperature from selected program
+                try:
+                    temperature = self.get_programs_selected_options_with_key("LaundryCare.Washer.Option.Temperature")["value"]
+                    self.status["LaundryCare.Washer.Option.Temperature"] = {"value": temperature}
+                except (HomeConnectError, ValueError) as err:  # pylint: disable=unused-variable
+                    _LOGGER.debug("Unable to fetch selected program. %s", err)
+                # Get spin speed from selected program
+                try:
+                    spin_speed = self.get_programs_selected_options_with_key("LaundryCare.Washer.Option.SpinSpeed")["value"]
+                    self.status["LaundryCare.Washer.Option.SpinSpeed"] = {"value": spin_speed}
+                except (HomeConnectError, ValueError) as err:  # pylint: disable=unused-variable
+                    _LOGGER.debug("Unable to fetch selected program. %s", err)
+
+            if self.type in ["Dryer", "WasherDryer"]:
+                # Get selected drying target
+                try:
+                    drying_target = self.get_programs_selected_options_with_key("LaundryCare.Dryer.Option.DryingTarget")["value"]
+                    self.status["LaundryCare.Dryer.Option.DryingTarget"] = {"value": drying_target}
+                except (HomeConnectError, ValueError) as err:  # pylint: disable=unused-variable
+                    _LOGGER.debug("Unable to fetch drying target. %s", err)
 
             # Watchdog counter resume because there is a valid connection
             self.wdt.resume()
