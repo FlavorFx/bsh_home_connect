@@ -230,13 +230,6 @@ class HomeConnectAppliance:
                 except (HomeConnectError, ValueError) as err:  # pylint: disable=unused-variable
                     _LOGGER.debug("Unable to fetch selected program. %s", err)
 
-                # Get active program
-                try:
-                    active_program = self.get_programs_active()
-                    self.status["BSH.Common.Root.ActiveProgram"] = {"value": active_program.get("key")}
-                except (HomeConnectError, ValueError) as err:  # pylint: disable=unused-variable
-                    _LOGGER.debug("Unable to fetch selected program. %s", err)
-
             if self.type in ["Washer", "WasherDryer"]:
                 # Get temperature from selected program
                 try:
