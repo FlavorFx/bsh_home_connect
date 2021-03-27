@@ -34,14 +34,12 @@ class HomeConnectSwitch(HomeConnectEntity, SwitchEntity):
 
     def __init__(self, device, description) -> None:
         """Initialize the entity."""
-
         super().__init__(device, description)
         self._state = None
 
     @property
     def is_on(self):
         """Return true if the switch is on."""
-
         return bool(self._state)
 
     async def async_turn_on(self, **kwargs):

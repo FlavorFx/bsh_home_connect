@@ -9,5 +9,5 @@
   "homekit": {},
   "dependencies": ["http"],
   "codeowners": ["@flavorfx"],
-  "version": "0.0.1"
+  "version": "0.0.2"
 }

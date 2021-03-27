@@ -33,7 +33,6 @@ class HomeConnectSensor(HomeConnectEntity, Entity):
 
     def __init__(self, device, key, description, unit, icon, device_class) -> None:
         """Initialize the entity."""
-
         super().__init__(device, description)
         self._unit = unit
         self._icon = icon
@@ -44,25 +43,21 @@ class HomeConnectSensor(HomeConnectEntity, Entity):
     @property
     def state(self):
         """Return the state of the sensor."""
-
         return self._state
 
     @property
     def icon(self):
         """Return the icon of the sensor."""
-
         return self._icon
 
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement."""
-
         return self._unit
 
     @property
     def device_class(self):
         """Return the device class."""
-
         return self._device_class
 
     async def async_update(self):

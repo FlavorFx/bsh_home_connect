@@ -33,7 +33,6 @@ class HomeConnectBinarySensor(HomeConnectEntity, BinarySensorEntity):
 
     def __init__(self, device, key, description, device_class) -> None:
         """Initialize the entity."""
-
         super().__init__(device, description)
         self._device_class = device_class
         self._key = key
@@ -42,13 +41,11 @@ class HomeConnectBinarySensor(HomeConnectEntity, BinarySensorEntity):
     @property
     def is_on(self):
         """Return true if the binary sensor is on."""
-
         return bool(self._state)
 
     @property
     def device_class(self):
         """Return the class of this binary_sensor."""
-
         return self._device_class
 
     async def async_update(self):

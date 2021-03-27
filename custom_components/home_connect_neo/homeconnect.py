@@ -189,19 +189,23 @@ class HomeConnectAppliance:
         self.status["LaundryCare.Washer.Option.Temperature"] = {"value": None}
         self.status["LaundryCare.Washer.Option.SpinSpeed"] = {"value": None}
         self.status["LaundryCare.Dryer.Option.DryingTarget"] = {"value": None}
+        self.status["Cooking.Common.Setting.Lighting"] = {"value": None}
+        self.status["Cooking.Common.Setting.LightingBrightness"] = {"value": None}
+        self.status["BSH.Common.Setting.AmbientLightEnabled"] = {"value": None}
+        self.status["BSH.Common.Setting.AmbientLightBrightness"] = {"value": None}
+        self.status["BSH.Common.Setting.AmbientLightColor"] = {"value": None}
+        self.status["BSH.Common.Setting.AmbientLightCustomColor"] = {"value": None}
 
         # Setup a watchdog and check every 5 minutes for a valid connection
         self.wdt = watch_dog_timer(300.0, self._observer)
         self.wdt.pause()
 
     def __repr__(self):
-
         return "HomeConnectAppliance(hc, haId='{}', vib='{}', brand='{}', type='{}', name='{}', enumber='{}', connected={})".format(self.haId, self.vib, self.brand, self.type, self.name, self.enumber, self.is_connected)
 
     @staticmethod
     def json2dict(lst):
         """Turn a list of dictionaries where one key is called 'key' into a dictionary with the value of 'key' as key."""
-
         return {d.pop("key"): d for d in lst}
 
     def update_properties(self):
@@ -257,7 +261,6 @@ class HomeConnectAppliance:
 
     def listen_events(self, callback=None):
         """Spawn a thread with an event listener that updates the status."""
-
         uri = f"{self.hc.host}/api/homeappliances/{self.haId}/events"
         sse = SSEClient(uri, session=self.hc._oauth, retry=1000, timeout=TIMEOUT_S)
         Thread(target=self._listen, args=(sse, callback)).start()
@@ -357,22 +360,18 @@ class HomeConnectAppliance:
 
     def _observer(self):
         """Recover the connection when it's lost."""
-
         _LOGGER.error("Server connection lost")
 
     def get(self, endpoint):
         """Get data (as dictionary) from an endpoint."""
-
         return self.hc.get("{}/{}{}".format(ENDPOINT_APPLIANCES, self.haId, endpoint))
 
     def put(self, endpoint, data):
         """Send (PUT) data to an endpoint."""
-
         return self.hc.put("{}/{}{}".format(ENDPOINT_APPLIANCES, self.haId, endpoint), data)
 
     def delete(self, endpoint):
         """Delete endpoint."""
-
         return self.hc.delete("{}/{}{}".format(ENDPOINT_APPLIANCES, self.haId, endpoint))
 
     def get_programs(self):
@@ -407,32 +406,26 @@ class HomeConnectAppliance:
 
     def get_programs_active(self):
         """Get the active program."""
-
         return self.get("/programs/active")
 
     def get_programs_active_options(self):
         """List of options of active program."""
-
         return self.get("/programs/active/options")
 
     def get_programs_active_options_with_key(self, option_key):
         """Option of active program."""
-
         return self.get(f"/programs/active/options/{option_key}")
 
     def get_programs_selected(self):
         """Get the selected program."""
-
         return self.get("/programs/selected")
 
     def get_programs_selected_options(self):
         """List of options of selected program."""
-
         return self.get("/programs/selected/options")
 
     def get_programs_selected_options_with_key(self, option_key):
         """Option of selected program."""
-
         return self.get(f"/programs/selected/options/{option_key}")
 
     def set_programs_active(self, program_key, options=None):
@@ -445,7 +438,6 @@ class HomeConnectAppliance:
 
     def set_programs_active_options(self, options):
         """Set all options of the active program, e.g. to switch from preheating to the actual program options."""
-
         return self.put("/programs/active/options", {"data": {"options": options}})
 
     def set_programs_active_options_with_key(self, option_key, value, unit=None):
@@ -458,7 +450,6 @@ class HomeConnectAppliance:
 
     def stop_programs_active(self, value):
         """Stop the program which is currently executed."""
-
         return self.delete("/programs/active")
 
     def set_programs_selected(self, program_key, options=None):
@@ -471,7 +462,6 @@ class HomeConnectAppliance:
 
     def set_programs_selected_options(self, options):
         """Set all options of selected program."""
-
         return self.put("/programs/selected/options", {"data": {"options": options}})
 
     def set_programs_selected_options_with_key(self, option_key, value, unit=None):
@@ -497,7 +487,6 @@ class HomeConnectAppliance:
 
     def get_status_with_key(self, status_key):
         """Get current status of home appliance."""
-
         return self.get(f"/status/{status_key}")
 
     def update_settings(self):
@@ -515,20 +504,16 @@ class HomeConnectAppliance:
 
     def get_settings_with_key(self, setting_key):
         """Get a specific setting"""
-
         return self.get(f"/settings/{setting_key}")
 
     def set_settings_with_key(self, setting_key, value):
         """Change the current setting of `setting_key`."""
-
         return self.put("/settings/{}".format(setting_key), {"data": {"key": setting_key, "value": value}})
 
     def get_commands(self):
         """Get a list of supported commands of the home appliance."""
-
         return self.get("/commands")
 
     def set_command(self, command_key):
         """Execute a specific command of the home appliance."""
-
         return self.put(f"/commands/{command_key}", {"data": {"key": command_key, "value": True}})

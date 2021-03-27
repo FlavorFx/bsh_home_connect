@@ -25,7 +25,6 @@ PLATFORMS = ["binary_sensor", "sensor", "switch", "light"]
 
 async def async_setup(hass: HomeAssistant, config: dict):
     """Old way to set up integrations."""
-
     return True
 
 

@@ -20,12 +20,10 @@ class OAuth2FlowHandler(config_entry_oauth2_flow.AbstractOAuth2FlowHandler, doma
     @property
     def logger(self) -> logging.Logger:
         """Return logger."""
-
         return logging.getLogger(__name__)
 
     def __init__(self):
         """Initialize the config flow."""
-
         super().__init__()
         self.client_id = None
         self.client_secret = None
