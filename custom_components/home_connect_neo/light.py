@@ -3,7 +3,7 @@
 import logging
 from math import ceil
 from homeassistant.components.light import ATTR_BRIGHTNESS, ATTR_HS_COLOR, LightEntity  # pylint: disable=import-error, no-name-in-module
-from homeassistant.util.color import color_util  # pylint: disable=import-error, no-name-in-module
+from homeassistant.util import color as color_util  # pylint: disable=import-error, no-name-in-module
 from .const import DOMAIN, SIGNAL_UPDATE_ENTITIES
 from .entity import HomeConnectEntity
 from .homeconnect import HomeConnectError
