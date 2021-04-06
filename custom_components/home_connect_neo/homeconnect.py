@@ -358,6 +358,9 @@ class HomeConnectAppliance:
             sse = SSEClient(uri, session=self.hc._oauth, retry=1000, timeout=TIMEOUT_S)
             self._listen(sse, callback=callback)
 
+        except Exception as err:
+            _LOGGER.error("Unhandled exception occured. %s", err)
+
     def _observer(self):
         """Recover the connection when it's lost."""
         _LOGGER.error("Server connection lost")
