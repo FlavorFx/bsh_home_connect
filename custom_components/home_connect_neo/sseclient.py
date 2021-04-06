@@ -1,10 +1,13 @@
 """Taken from https://github.com/btubbs/sseclient"""
+from __future__ import unicode_literals
 
 import codecs
 import logging
 import re
 import time
 import warnings
+import http
+import socket
 import requests
 from oauthlib.oauth2 import TokenExpiredError
 from requests.exceptions import HTTPError
@@ -37,7 +40,7 @@ class SSEClient(object):
         self.requests_kwargs["headers"]["Accept"] = "text/event-stream"
 
         # Keep data here as it streams in
-        self.buf = u""
+        self.buf = ""
 
         self._connect()
 
@@ -46,19 +49,34 @@ class SSEClient(object):
         if self.last_id:
             self.requests_kwargs["headers"]["Last-Event-ID"] = self.last_id
 
-        # Use session if set.  Otherwise fall back to requests module.
-        requester = self.session or requests
-        self.resp = requester.get(self.url, stream=True, **self.requests_kwargs)
-        self.resp_iterator = self.resp.iter_content(chunk_size=self.chunk_size)
-
-        # TODO: Ensure we're handling redirects.  Might also stick the 'origin' attribute on Events like the Javascript spec requires.
         try:
+            # Use session if set.  Otherwise fall back to requests module.
+            requester = self.session or requests
+            self.resp = requester.get(self.url, stream=True, **self.requests_kwargs)
+            self.resp_iterator = self.iter_content()
+            encoding = self.resp.encoding or self.resp.apparent_encoding
+            self.decoder = codecs.getincrementaldecoder(encoding)(errors="replace")
+            # TODO: Ensure we're handling redirects.  Might also stick the 'origin' attribute on Events like the Javascript spec requires.
             self.resp.raise_for_status()
-        except HTTPError:
+        except (HTTPError, requests.RequestException):
             _LOGGER.error("Failed connecting.")
             # Wait 10 times longer if connection failed due to rate limits
             time.sleep(10 * self.retry / 1000.0)
             self._connect()
+
+    def iter_content(self):
+        def generate():
+            while True:
+                if hasattr(self.resp.raw, "_fp") and hasattr(self.resp.raw._fp, "fp") and hasattr(self.resp.raw._fp.fp, "read1"):
+                    chunk = self.resp.raw._fp.fp.read1(self.chunk_size)
+                else:
+                    # _fp is not available, this means that we cannot use short reads and this will block until the full chunk size is actually read
+                    chunk = self.resp.raw.read(self.chunk_size)
+                if not chunk:
+                    break
+                yield chunk
+
+        return generate()
 
     def _event_complete(self):
         return re.search(end_of_field, self.buf) is not None
@@ -69,17 +87,14 @@ class SSEClient(object):
     def __next__(self):
         while not self._event_complete():
             try:
-                decoder = codecs.getincrementaldecoder(self.resp.encoding)(errors="replace")
                 next_chunk = next(self.resp_iterator)
                 if not next_chunk:
                     _LOGGER.error("EOFError")
                     raise EOFError()
-                self.buf += decoder.decode(next_chunk)
+                self.buf += self.decoder.decode(next_chunk)
 
-            # except (StopIteration, requests.RequestException, EOFError, http.client.IncompleteRead, ValueError) as e:
-            except Exception as error:  # pylint: disable=unused-variable
-                # _LOGGER.warning("Exception while reading event: ", exc_info=True)
-                _LOGGER.warning("Exception while reading event.")
+            except (StopIteration, requests.RequestException, EOFError, http.client.IncompleteRead, socket.timeout) as err:
+                _LOGGER.warning("Exception while reading event. %s", err)
                 time.sleep(self.retry / 1000.0)
                 self._connect()
 
@@ -108,6 +123,7 @@ class Event(object):
     sse_line_pattern = re.compile("(?P<name>[^:]*):?( ?(?P<value>.*))?")
 
     def __init__(self, data="", event="message", id=None, retry=None):
+        assert isinstance(data, str), "Data must be text"
         self.data = data
         self.event = event
         self.id = id
@@ -136,8 +152,7 @@ class Event(object):
             m = cls.sse_line_pattern.match(line)
             if m is None:
                 # Malformed line.  Discard but warn.
-                warnings.warn('Invalid SSE line: "%s"' % line, SyntaxWarning)
-                _LOGGER.warn('Invalid SSE line: "%s"', line)
+                _LOGGER.warning('Invalid SSE line: "%s"' % line, SyntaxWarning)
                 continue
 
             name = m.group("name")
