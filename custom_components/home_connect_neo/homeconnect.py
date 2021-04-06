@@ -97,7 +97,7 @@ class HomeConnectAPI:
             return getattr(self._oauth, method)(url, **kwargs)
 
         except TokenExpiredError:
-            _LOGGER.warning("Token expired.")
+            _LOGGER.info("Token expired.")
             self._oauth.token = self.refresh_tokens()
 
             return getattr(self._oauth, method)(url, **kwargs)
@@ -264,7 +264,7 @@ class HomeConnectAppliance:
     def _listen(self, sse, callback=None):
         """Worker function for listener."""
 
-        _LOGGER.info("Listening to event stream for device %s", self.name)
+        _LOGGER.debug("Listening to event stream for device %s", self.name)
 
         try:
             for event in sse:
@@ -359,7 +359,7 @@ class HomeConnectAppliance:
 
     def _observer(self):
         """Recover the connection when it's lost."""
-        _LOGGER.error("Server connection lost")
+        _LOGGER.info("Server connection lost")
 
     def get(self, endpoint):
         """Get data (as dictionary) from an endpoint."""

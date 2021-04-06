@@ -59,7 +59,7 @@ class SSEClient(object):
             # TODO: Ensure we're handling redirects.  Might also stick the 'origin' attribute on Events like the Javascript spec requires.
             self.resp.raise_for_status()
         except (HTTPError, requests.RequestException):
-            _LOGGER.error("Failed connecting.")
+            _LOGGER.warning("Failed connecting.")
             # Wait 10 times longer if connection failed due to rate limits
             time.sleep(10 * self.retry / 1000.0)
             self._connect()
@@ -94,7 +94,7 @@ class SSEClient(object):
                 self.buf += self.decoder.decode(next_chunk)
 
             except (StopIteration, requests.RequestException, EOFError, http.client.IncompleteRead, socket.timeout) as err:
-                _LOGGER.warning("Exception while reading event. %s", err)
+                _LOGGER.error("Exception while reading event. %s", err)
                 time.sleep(self.retry / 1000.0)
                 self._connect()
 
@@ -152,7 +152,7 @@ class Event(object):
             m = cls.sse_line_pattern.match(line)
             if m is None:
                 # Malformed line.  Discard but warn.
-                _LOGGER.warning('Invalid SSE line: "%s"' % line, SyntaxWarning)
+                _LOGGER.error('Invalid SSE line: "%s"' % line, SyntaxWarning)
                 continue
 
             name = m.group("name")
