@@ -63,7 +63,7 @@ class HomeConnectLight(HomeConnectEntity, LightEntity):
         if self._key == "BSH.Common.Setting.AmbientLightEnabled":
             # Turn on ambient light
             try:
-                await self.hass.async_add_executor_job(self.device.appliance.set_setting, self._key, True)
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting, self._key, True)
             except HomeConnectError as err:
                 _LOGGER.error("Error while trying to turn on ambient light: %s", err)
                 return
@@ -71,7 +71,7 @@ class HomeConnectLight(HomeConnectEntity, LightEntity):
             # Set hue and saturation and brightness of ambient light
             if ATTR_BRIGHTNESS in kwargs or ATTR_HS_COLOR in kwargs:
                 try:
-                    await self.hass.async_add_executor_job(self.device.appliance.set_setting, "BSH.Common.Setting.AmbientLightColor", "BSH.Common.EnumType.AmbientLightColor.CustomColor")
+                    await self.hass.async_add_executor_job(self._device.appliance.set_setting, "BSH.Common.Setting.AmbientLightColor", "BSH.Common.EnumType.AmbientLightColor.CustomColor")
                 except HomeConnectError as err:
                     _LOGGER.error("Error while trying selecting customcolor: %s", err)
 
@@ -88,7 +88,7 @@ class HomeConnectLight(HomeConnectEntity, LightEntity):
                         rgb = color_util.color_hsv_to_RGB(*hs_color, brightness)
                         hex_val = color_util.color_rgb_to_hex(rgb[0], rgb[1], rgb[2])
                         try:
-                            await self.hass.async_add_executor_job(self.device.appliance.set_setting, "BSH.Common.Setting.AmbientLightCustomColor", f"#{hex_val}")
+                            await self.hass.async_add_executor_job(self._device.appliance.set_setting, "BSH.Common.Setting.AmbientLightCustomColor", f"#{hex_val}")
                         except HomeConnectError as err:
                             _LOGGER.error("Error while trying setting the color: %s", err)
 
@@ -97,13 +97,13 @@ class HomeConnectLight(HomeConnectEntity, LightEntity):
                 # Set brightness of functional light
                 brightness = 10 + ceil(kwargs[ATTR_BRIGHTNESS] / 255 * 90)
                 try:
-                    await self.hass.async_add_executor_job(self.device.appliance.set_setting, "Cooking.Common.Setting.LightingBrightness", brightness)
+                    await self.hass.async_add_executor_job(self._device.appliance.set_setting, "Cooking.Common.Setting.LightingBrightness", brightness)
                 except HomeConnectError as err:
                     _LOGGER.error("Error while trying set the brightness: %s", err)
             else:
                 # Turn on functional light
                 try:
-                    await self.hass.async_add_executor_job(self.device.appliance.set_setting, self._key, True)
+                    await self.hass.async_add_executor_job(self._device.appliance.set_setting, self._key, True)
                 except HomeConnectError as err:
                     _LOGGER.error("Error while trying to turn on light: %s", err)
 
@@ -115,7 +115,7 @@ class HomeConnectLight(HomeConnectEntity, LightEntity):
     async def async_turn_off(self, **kwargs):
         """Switch light off."""
         try:
-            await self.hass.async_add_executor_job(self.device.appliance.set_settings_with_key, self._key, False)
+            await self.hass.async_add_executor_job(self._device.appliance.set_settings_with_key, self._key, False)
         except HomeConnectError as err:
             _LOGGER.error("Error while trying to turn off light: %s", err)
         self.async_entity_update()
@@ -140,8 +140,8 @@ class HomeConnectLight(HomeConnectEntity, LightEntity):
             if self._key == "Cooking.Common.Setting.Lighting":
 
                 # Brightness
-                brightness = self.device.appliance.status.get("Cooking.Common.Setting.LightingBrightness", {})
-                if brightness is not None:
+                brightness = self._device.appliance.status.get("Cooking.Common.Setting.LightingBrightness", {})
+                if brightness is not None and brightness.get("value") is not None:
                     self._brightness = ceil((brightness.get("value") - 10) * 255 / 90)
                 else:
                     self._brightness = None
@@ -150,15 +150,15 @@ class HomeConnectLight(HomeConnectEntity, LightEntity):
             elif self._key == "BSH.Common.Setting.AmbientLightEnabled":
 
                 # Brightness
-                brightness = self.device.appliance.status.get("BSH.Common.Setting.AmbientLightBrightness", {})
-                if brightness is not None:
+                brightness = self._device.appliance.status.get("BSH.Common.Setting.AmbientLightBrightness", {})
+                if brightness is not None and brightness.get("value") is not None:
                     self._brightness = ceil((brightness.get("value") - 10) * 255 / 90)
                 else:
                     self._brightness = None
 
                 # Hue, saturation and brightness for custom color
-                color = self.device.appliance.status.get("BSH.Common.Setting.AmbientLightCustomColor", {})
-                if color is not None:
+                color = self._device.appliance.status.get("BSH.Common.Setting.AmbientLightCustomColor", {})
+                if color is not None and color.get("value") is not None:
                     colorvalue = color.get("value")[1:]
                     rgb = color_util.rgb_hex_to_rgb_list(colorvalue)
                     hsv = color_util.color_RGB_to_hsv(rgb[0], rgb[1], rgb[2])
