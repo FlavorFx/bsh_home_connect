@@ -181,16 +181,20 @@ class HomeConnectAppliance:
         self.status["BSH.Common.Status.OperationState"] = {"value": None}
         self.status["BSH.Common.Option.ProgramProgress"] = {"value": 0}
         self.status["BSH.Common.Option.RemainingProgramTime"] = {"value": 0}
+        self.status["BSH.Common.Option.Duration"] = {"value": 0}
+        self.status["BSH.Common.Option.ElapsedProgramTime"] = {"value": 0}
         self.status["BSH.Common.Root.SelectedProgram"] = {"value": None}
+        self.status["BSH.Common.Setting.AmbientLightEnabled"] = {"value": None}
+        self.status["BSH.Common.Setting.AmbientLightBrightness"] = {"value": None}
+        self.status["BSH.Common.Setting.AmbientLightColor"] = {"value": None}
+        self.status["BSH.Common.Setting.AmbientLightCustomColor"] = {"value": None}
         self.status["LaundryCare.Washer.Option.Temperature"] = {"value": None}
         self.status["LaundryCare.Washer.Option.SpinSpeed"] = {"value": None}
         self.status["LaundryCare.Dryer.Option.DryingTarget"] = {"value": None}
         self.status["Cooking.Common.Setting.Lighting"] = {"value": None}
         self.status["Cooking.Common.Setting.LightingBrightness"] = {"value": None}
-        self.status["BSH.Common.Setting.AmbientLightEnabled"] = {"value": None}
-        self.status["BSH.Common.Setting.AmbientLightBrightness"] = {"value": None}
-        self.status["BSH.Common.Setting.AmbientLightColor"] = {"value": None}
-        self.status["BSH.Common.Setting.AmbientLightCustomColor"] = {"value": None}
+        self.status["Cooking.Oven.Status.CurrentCavityTemperature"] = {"value": None}
+        self.status["Cooking.Oven.Option.SetpointTemperature"] = {"value": None}
 
         # Setup a watchdog and check every 5 minutes for a valid connection
         self.wdt = watch_dog_timer(300.0, self._observer)

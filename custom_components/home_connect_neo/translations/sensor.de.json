@@ -95,6 +95,24 @@
             "LaundryCare.Dryer.EnumType.DryingTarget.IronDry": "Bügeltrocken",
             "LaundryCare.Dryer.EnumType.DryingTarget.CupboardDry": "Schranktrocken",
             "LaundryCare.Dryer.EnumType.DryingTarget.CupboardDryPlus": "Schranktrocken Plus"
+        },
+        "home_connect_oven_program": {
+            "Cooking.Oven.Program.HeatingMode.HotAir": "Hot Air",
+            "Cooking.Oven.Program.HeatingMode.HotAirEco": "Hot Air Eco",
+            "Cooking.Oven.Program.HeatingMode.HotAirGrilling": "Hot Air Grilling",
+            "Cooking.Oven.Program.HeatingMode.TopBottomHeating": "Top Bottom Heating",
+            "Cooking.Oven.Program.HeatingMode.TopBottomHeatingEco": "Top Bottom Heating Eco",
+            "Cooking.Oven.Program.HeatingMode.BottomHeating": "Bottom Heating",
+            "Cooking.Oven.Program.HeatingMode.PizzaSetting": "Pizza Setting",
+            "Cooking.Oven.Program.HeatingMode.SlowCook": "Slow Cook",
+            "Cooking.Oven.Program.HeatingMode.IntensiveHeat": "Intensive Heat",
+            "Cooking.Oven.Program.HeatingMode.KeepWarm": "Keep Warm",
+            "Cooking.Oven.Program.HeatingMode.PreheatOvenware": "Preheat Ovenware",
+            "Cooking.Oven.Program.HeatingMode.FrozenHeatupSpecial": "Frozen Heatup Special",
+            "Cooking.Oven.Program.HeatingMode.Desiccation": "Desiccation",
+            "Cooking.Oven.Program.HeatingMode.Defrost": "Defrost",
+            "Cooking.Oven.Program.HeatingMode.Proof": "Proof",
+            "Cooking.Oven.Program.HeatingMode.PreHeating": "Pre Heating"
         }
     }
 }

@@ -207,11 +207,19 @@ class Oven(Appliance):
         self.binary_sensors.extend(
             [
                 {"device": self, "key": "BSH.Common.Status.RemoteControlStartAllowed", "description": "Remote Control", "device_class": None},
+                {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
             ]
         )
         self.sensors.extend(
             [
                 {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
+                {"device": self, "key": "BSH.Common.Option.RemainingProgramTime", "description": "Remaining Time", "unit": TIME_SECONDS, "icon": "mdi:update", "device_class": None},
+                {"device": self, "key": "BSH.Common.Option.Duration", "description": "Duration", "unit": TIME_SECONDS, "icon": "mdi:update", "device_class": None},
+                {"device": self, "key": "BSH.Common.Option.ElapsedProgramTime", "description": "ElapsedProgramTime", "unit": TIME_SECONDS, "icon": "mdi:update", "device_class": None},
+                {"device": self, "key": "BSH.Common.Option.ProgramProgress", "description": "Progress", "unit": PERCENTAGE, "icon": "mdi:progress-clock", "device_class": None},
+                {"device": self, "key": "BSH.Common.Root.SelectedProgram", "description": "Program", "unit": None, "icon": "mdi:format-list-bulleted", "device_class": "home_connect_oven_program"},
+                {"device": self, "key": "Cooking.Oven.Status.CurrentCavityTemperature", "description": "Current Cavity Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Cooking.Oven.Option.SetpointTemperature", "description": "Setpoint Temperature", "unit": TEMP_CELSIUS, "icon": "coolant-temperature", "device_class": None},
             ]
         )
         self.switches.append({"device": self, "description": "Start"})
