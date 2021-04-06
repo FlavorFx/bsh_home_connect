@@ -10,11 +10,7 @@ from oauthlib.oauth2 import TokenExpiredError
 from requests import Response
 from requests_oauthlib import OAuth2Session
 from .sseclient import SSEClient
-
-URL_API = "https://api.home-connect.com"
-ENDPOINT_AUTHORIZE = "/security/oauth/authorize"
-ENDPOINT_TOKEN = "/security/oauth/token"
-ENDPOINT_APPLIANCES = "/api/homeappliances"
+from .const import BASE_URL, ENDPOINT_APPLIANCES, ENDPOINT_TOKEN
 
 _LOGGER = logging.getLogger("homeconnect")
 
@@ -72,7 +68,7 @@ class HomeConnectError(Exception):
 
 class HomeConnectAPI:
     def __init__(self, token: Optional[Dict[str, str]] = None, client_id: str = None, client_secret: str = None, redirect_uri: str = None, token_updater: Optional[Callable[[str], None]] = None):
-        self.host = URL_API
+        self.host = BASE_URL
         self.client_id = client_id
         self.client_secret = client_secret
         self.redirect_uri = redirect_uri

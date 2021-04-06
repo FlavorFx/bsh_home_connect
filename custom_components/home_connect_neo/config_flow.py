@@ -5,10 +5,7 @@ import voluptuous as vol
 from homeassistant import config_entries  # pylint: disable=import-error, no-name-in-module
 from homeassistant.helpers import config_entry_oauth2_flow  # pylint: disable=import-error, no-name-in-module
 from homeassistant.const import CONF_CLIENT_ID, CONF_CLIENT_SECRET  # pylint: disable=import-error, no-name-in-module
-from .const import DOMAIN, NAME
-
-OAUTH2_AUTHORIZE = "https://api.home-connect.com/security/oauth/authorize"
-OAUTH2_TOKEN = "https://api.home-connect.com/security/oauth/token"
+from .const import DOMAIN, NAME, BASE_URL, ENDPOINT_AUTHORIZE, ENDPOINT_TOKEN
 
 
 class OAuth2FlowHandler(config_entry_oauth2_flow.AbstractOAuth2FlowHandler, domain=DOMAIN):
@@ -44,7 +41,9 @@ class OAuth2FlowHandler(config_entry_oauth2_flow.AbstractOAuth2FlowHandler, doma
                 # Register your own Config Flow Handler
                 self.client_id = user_input[CONF_CLIENT_ID]
                 self.client_secret = user_input[CONF_CLIENT_SECRET]
-                OAuth2FlowHandler.async_register_implementation(self.hass, config_entry_oauth2_flow.LocalOAuth2Implementation(self.hass, DOMAIN, self.client_id, self.client_secret, OAUTH2_AUTHORIZE, OAUTH2_TOKEN))
+                authorize_url = f"{BASE_URL}{ENDPOINT_AUTHORIZE}"
+                token_url = f"{BASE_URL}{ENDPOINT_TOKEN}"
+                OAuth2FlowHandler.async_register_implementation(self.hass, config_entry_oauth2_flow.LocalOAuth2Implementation(self.hass, DOMAIN, self.client_id, self.client_secret, authorize_url, token_url))
 
                 # Hand over control of the parent class
                 return await self.async_step_pick_implementation()

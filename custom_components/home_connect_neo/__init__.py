@@ -10,11 +10,8 @@ from homeassistant.core import HomeAssistant  # pylint: disable=import-error, no
 from homeassistant.helpers import aiohttp_client, config_entry_oauth2_flow, config_validation as cv  # pylint: disable=import-error, no-name-in-module
 from .api import ConfigEntryAuth
 from .config_flow import OAuth2FlowHandler
-from .const import DOMAIN
+from .const import DOMAIN, BASE_URL, ENDPOINT_AUTHORIZE, ENDPOINT_TOKEN
 from .device import Washer, Dryer, Dishwasher, Freezer, FridgeFreezer, Oven, CoffeeMaker, Hood, Hob, WasherDryer, Refrigerator, WineCooler
-
-OAUTH2_AUTHORIZE = "https://api.home-connect.com/security/oauth/authorize"
-OAUTH2_TOKEN = "https://api.home-connect.com/security/oauth/token"
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,7 +32,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
     client_id = entry.data.get(CONF_CLIENT_ID)
     client_secret = entry.data.get(CONF_CLIENT_SECRET)
-    OAuth2FlowHandler.async_register_implementation(hass, config_entry_oauth2_flow.LocalOAuth2Implementation(hass, DOMAIN, client_id, client_secret, OAUTH2_AUTHORIZE, OAUTH2_TOKEN))
+    authorize_url = f"{BASE_URL}{ENDPOINT_AUTHORIZE}"
+    token_url = f"{BASE_URL}{ENDPOINT_TOKEN}"
+    OAuth2FlowHandler.async_register_implementation(hass, config_entry_oauth2_flow.LocalOAuth2Implementation(hass, DOMAIN, client_id, client_secret, authorize_url, token_url))
 
     implementation = await config_entry_oauth2_flow.async_get_config_entry_implementation(hass, entry)
 
