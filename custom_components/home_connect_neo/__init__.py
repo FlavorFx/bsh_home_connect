@@ -54,40 +54,40 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     for appliance in appliances:
         if appliance.type == "Washer":
             device = Washer(hass, appliance)
-            _LOGGER.debug("Washer detected")
+            _LOGGER.info("Washer detected")
         elif appliance.type == "Dryer":
             device = Dryer(hass, appliance)
-            _LOGGER.debug("Dryer detected")
+            _LOGGER.info("Dryer detected")
         elif appliance.type == "WasherDryer":
             device = WasherDryer(hass, appliance)
-            _LOGGER.debug("Washer Dryer detected")
+            _LOGGER.info("Washer Dryer detected")
         elif appliance.type == "Refrigerator":
             device = Refrigerator(hass, appliance)
-            _LOGGER.debug("Refrigerator detected")
+            _LOGGER.info("Refrigerator detected")
         elif appliance.type == "WineCooler":
             device = WineCooler(hass, appliance)
-            _LOGGER.debug("Wine Cooler detected")
+            _LOGGER.info("Wine Cooler detected")
         elif appliance.type == "Freezer":
             device = Freezer(hass, appliance)
-            _LOGGER.debug("Freezer detected")
+            _LOGGER.info("Freezer detected")
         elif appliance.type == "Dishwasher":
             device = Dishwasher(hass, appliance)
-            _LOGGER.debug("Dishwasher detected")
+            _LOGGER.info("Dishwasher detected")
         elif appliance.type == "FridgeFreezer":
             device = FridgeFreezer(hass, appliance)
-            _LOGGER.debug("Fridge Freezer detected")
+            _LOGGER.info("Fridge Freezer detected")
         elif appliance.type == "Oven":
             device = Oven(hass, appliance)
-            _LOGGER.debug("Oven detected")
+            _LOGGER.info("Oven detected")
         elif appliance.type == "CoffeeMaker":
             device = CoffeeMaker(hass, appliance)
-            _LOGGER.debug("Coffee Maker detected")
+            _LOGGER.info("Coffee Maker detected")
         elif appliance.type == "Hood":
             device = Hood(hass, appliance)
-            _LOGGER.debug("Hood detected")
+            _LOGGER.info("Hood detected")
         elif appliance.type == "Hob":
             device = Hob(hass, appliance)
-            _LOGGER.debug("Hob detected")
+            _LOGGER.info("Hob detected")
         else:
             _LOGGER.warning("Appliance type %s not implemented", appliance.type)
             continue
