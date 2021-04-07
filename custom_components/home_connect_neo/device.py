@@ -145,6 +145,9 @@ class Dishwasher(Appliance):
         self.sensors.extend(
             [
                 {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
+                {"device": self, "key": "BSH.Common.Option.RemainingProgramTime", "description": "Remaining Time", "unit": TIME_SECONDS, "icon": "mdi:update", "device_class": None},
+                {"device": self, "key": "BSH.Common.Option.ProgramProgress", "description": "Progress", "unit": PERCENTAGE, "icon": "mdi:progress-clock", "device_class": None},
+                {"device": self, "key": "BSH.Common.Root.SelectedProgram", "description": "Program", "unit": None, "icon": "mdi:format-list-bulleted", "device_class": "home_connect_dishcare_program"},
             ]
         )
         self.switches.append({"device": self, "description": "Start"})

@@ -113,6 +113,30 @@
             "Cooking.Oven.Program.HeatingMode.Defrost": "Defrost",
             "Cooking.Oven.Program.HeatingMode.Proof": "Proof",
             "Cooking.Oven.Program.HeatingMode.PreHeating": "Pre Heating"
+        },
+        "home_connect_dishcare_program": {
+            "Dishcare.Dishwasher.Program.Auto1": "Auto 35-45°C",
+            "Dishcare.Dishwasher.Program.Auto2": "Auto 45-65°C",
+            "Dishcare.Dishwasher.Program.Auto3": "Auto 65-75°C",
+            "Dishcare.Dishwasher.Program.Eco50": "Eco 50°C",
+            "Dishcare.Dishwasher.Program.Quick45": "Quick 45°C",
+            "Dishcare.Dishwasher.Program.Intensiv70": "Intensiv 70°C",
+            "Dishcare.Dishwasher.Program.Normal65": "Normal 65°C",
+            "Dishcare.Dishwasher.Program.Glas40": "Glas 40°C",
+            "Dishcare.Dishwasher.Program.GlassCare": "Glass Care",
+            "Dishcare.Dishwasher.Program.NightWash": "Night Wash",
+            "Dishcare.Dishwasher.Program.Quick65": "Quick 65°C",
+            "Dishcare.Dishwasher.Program.Normal45": "Normal 45°C",
+            "Dishcare.Dishwasher.Program.Intensiv45": "Intensiv 45°C",
+            "Dishcare.Dishwasher.Program.AutoHalfLoad": "Auto Half Load",
+            "Dishcare.Dishwasher.Program.IntensivPower": "Intensiv Power",
+            "Dishcare.Dishwasher.Program.MagicDaily": "Magic Daily",
+            "Dishcare.Dishwasher.Program.Super60": "Super 60°C",
+            "Dishcare.Dishwasher.Program.Kurz60": "Kurz 60°C",
+            "Dishcare.Dishwasher.Program.ExpressSparkle65": "Express Sparkle 65°C",
+            "Dishcare.Dishwasher.Program.MachineCare": "Machine Care",
+            "Dishcare.Dishwasher.Program.SteamFresh": "Steam Fresh",
+            "Dishcare.Dishwasher.Program.MaximumCleaning": "Maximum Cleaning"
         }
     }
 }
