@@ -80,7 +80,7 @@ class Washer(Appliance):
                 {"device": self, "key": "LaundryCare.Washer.Option.SpinSpeed", "description": "Spin Speed", "unit": None, "icon": "mdi:rotate-right", "device_class": "home_connect_washer_spin_speed"},
             ]
         )
-        self.switches.append({"device": self, "description": "Start"})
+        self.switches.append({"device": self, "key": "BSH.Common.Start", "description": "Start"})
 
 
 class Dryer(Appliance):
@@ -103,7 +103,7 @@ class Dryer(Appliance):
                 {"device": self, "key": "LaundryCare.Dryer.Option.DryingTarget", "description": "Drying Target", "unit": None, "icon": "mdi:water-percent", "device_class": "home_connect_drying_target"},
             ]
         )
-        self.switches.append({"device": self, "description": "Start"})
+        self.switches.append({"device": self, "key": "BSH.Common.Start", "description": "Start"})
 
 
 class WasherDryer(Appliance):
@@ -128,7 +128,7 @@ class WasherDryer(Appliance):
                 {"device": self, "key": "LaundryCare.Dryer.Option.DryingTarget", "description": "Drying Target", "unit": None, "icon": "mdi:water-percent", "device_class": "home_connect_drying_target"},
             ]
         )
-        self.switches.append({"device": self, "description": "Start"})
+        self.switches.append({"device": self, "key": "BSH.Common.Start", "description": "Start"})
 
 
 class Dishwasher(Appliance):
@@ -150,7 +150,7 @@ class Dishwasher(Appliance):
                 {"device": self, "key": "BSH.Common.Root.SelectedProgram", "description": "Program", "unit": None, "icon": "mdi:format-list-bulleted", "device_class": "home_connect_dishcare_program"},
             ]
         )
-        self.switches.append({"device": self, "description": "Start"})
+        self.switches.append({"device": self, "key": "BSH.Common.Start", "description": "Start"})
         self.lights.append({"device": self, "key": "BSH.Common.Setting.AmbientLightEnabled", "description": "Ambient Light"})
 
 
@@ -162,6 +162,24 @@ class Refrigerator(Appliance):
         self.binary_sensors.extend(
             [
                 {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
+            ]
+        )
+        self.sensors.extend(
+            [
+                {"device": self, "key": "Refrigeration.Common.Setting.BottleCooler.SetpointTemperature", "description": "Bottle Coller Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerLeft.SetpointTemperature", "description": "Chiller Left Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature", "description": "Chiller Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerRight.SetpointTemperature", "description": "Chiller Right Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureRefrigerator", "description": "Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+            ]
+        )
+        self.switches.extend(
+            [
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SuperModeRefrigerator", "description": "Super Mode Refrigerator"},
+                {"device": self, "key": "Refrigeration.Common.Setting.EcoMode", "description": "Eco Mode"},
+                {"device": self, "key": "Refrigeration.Common.Setting.SabbathMode", "description": "Sabbath Mode"},
+                {"device": self, "key": "Refrigeration.Common.Setting.VacationMode", "description": "Vacation Mode"},
+                {"device": self, "key": "Refrigeration.Common.Setting.FreshMode", "description": "Fresh Mode"},
             ]
         )
 
@@ -176,6 +194,14 @@ class WineCooler(Appliance):
                 {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
             ]
         )
+        self.sensors.extend(
+            [
+                {"device": self, "key": "Refrigeration.Common.Setting.WineCompartment.SetpointTemperature", "description": "Temperature 1", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.WineCompartment2.SetpointTemperature", "description": "Temperature 2", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.WineCompartment3.SetpointTemperature", "description": "Temperature 3", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+            ]
+        )
+        self.switches.append({"device": self, "key": "Refrigeration.Common.Setting.SabbathMode", "description": "Sabbath Mode"})
 
 
 class Freezer(Appliance):
@@ -188,6 +214,18 @@ class Freezer(Appliance):
                 {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
             ]
         )
+        self.sensors.extend(
+            [
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureFreezer", "description": "Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+            ]
+        )
+        self.switches.extend(
+            [
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SuperModeFreezer", "description": "Super Mode Freezer"},
+                {"device": self, "key": "Refrigeration.Common.Setting.EcoMode", "description": "Eco Mode"},
+                {"device": self, "key": "Refrigeration.Common.Setting.SabbathMode", "description": "Sabbath Mode"},
+            ]
+        )
 
 
 class FridgeFreezer(Appliance):
@@ -198,6 +236,26 @@ class FridgeFreezer(Appliance):
         self.binary_sensors.extend(
             [
                 {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
+            ]
+        )
+        self.sensors.extend(
+            [
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureFreezer", "description": "Freezer Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureRefrigerator", "description": "Refrigerator Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.BottleCooler.SetpointTemperature", "description": "Bottle Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerLeft.SetpointTemperature", "description": "Chiller Left Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature", "description": "Chiller Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerRight.SetpointTemperature", "description": "Chiller Right Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+            ]
+        )
+        self.switches.extend(
+            [
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SuperModeRefrigerator", "description": "Super Mode Refrigerator"},
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SuperModeFreezer", "description": "Super Mode Freezer"},
+                {"device": self, "key": "Refrigeration.Common.Setting.EcoMode", "description": "Eco Mode"},
+                {"device": self, "key": "Refrigeration.Common.Setting.SabbathMode", "description": "Sabbath Mode"},
+                {"device": self, "key": "Refrigeration.Common.Setting.VacationMode", "description": "Vacation Mode"},
+                {"device": self, "key": "Refrigeration.Common.Setting.FreshMode", "description": "Fresh Mode"},
             ]
         )
 
@@ -222,10 +280,10 @@ class Oven(Appliance):
                 {"device": self, "key": "BSH.Common.Option.ProgramProgress", "description": "Progress", "unit": PERCENTAGE, "icon": "mdi:progress-clock", "device_class": None},
                 {"device": self, "key": "BSH.Common.Root.SelectedProgram", "description": "Program", "unit": None, "icon": "mdi:format-list-bulleted", "device_class": "home_connect_oven_program"},
                 {"device": self, "key": "Cooking.Oven.Status.CurrentCavityTemperature", "description": "Current Cavity Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Cooking.Oven.Option.SetpointTemperature", "description": "Setpoint Temperature", "unit": TEMP_CELSIUS, "icon": "coolant-temperature", "device_class": None},
+                {"device": self, "key": "Cooking.Oven.Option.SetpointTemperature", "description": "Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
             ]
         )
-        self.switches.append({"device": self, "description": "Start"})
+        self.switches.append({"device": self, "key": "BSH.Common.Start", "description": "Start"})
 
 
 class CoffeeMaker(Appliance):
@@ -243,7 +301,7 @@ class CoffeeMaker(Appliance):
                 {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
             ]
         )
-        self.switches.append({"device": self, "description": "Start"})
+        self.switches.append({"device": self, "key": "BSH.Common.Start", "description": "Start"})
 
 
 class Hood(Appliance):
@@ -256,7 +314,7 @@ class Hood(Appliance):
                 {"device": self, "key": "BSH.Common.Status.RemoteControlStartAllowed", "description": "Remote Control", "device_class": None},
             ]
         )
-        self.switches.append({"device": self, "description": "Start"})
+        self.switches.append({"device": self, "key": "BSH.Common.Start", "description": "Start"})
         self.lights.extend(
             [
                 {"device": self, "key": "Cooking.Common.Setting.Lighting", "description": "Light"},
@@ -293,4 +351,4 @@ class WarmingDrawer(Appliance):
                 {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
             ]
         )
-        self.switches.append({"device": self, "description": "Start"})
+        self.switches.append({"device": self, "key": "BSH.Common.Start", "description": "Start"})

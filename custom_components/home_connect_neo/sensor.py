@@ -84,6 +84,15 @@ class HomeConnectSensor(HomeConnectEntity, Entity):
                 "LaundryCare.Dryer.Option.DryingTarget",
                 "Cooking.Oven.Status.CurrentCavityTemperature",
                 "Cooking.Oven.Option.SetpointTemperature",
+                "Refrigeration.Common.Setting.BottleCooler.SetpointTemperature",
+                "Refrigeration.Common.Setting.ChillerLeft.SetpointTemperature",
+                "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature",
+                "Refrigeration.Common.Setting.ChillerRight.SetpointTemperature",
+                "Refrigeration.Common.Setting.WineCompartment.SetpointTemperature",
+                "Refrigeration.Common.Setting.WineCompartment2.SetpointTemperature",
+                "Refrigeration.Common.Setting.WineCompartment3.SetpointTemperature",
+                "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureRefrigerator",
+                "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureFreezer",
             ]:
                 self._state = status[self._key].get("value")
             else:

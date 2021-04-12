@@ -195,6 +195,18 @@ class HomeConnectAppliance:
         self.status["Cooking.Common.Setting.LightingBrightness"] = {"value": None}
         self.status["Cooking.Oven.Status.CurrentCavityTemperature"] = {"value": None}
         self.status["Cooking.Oven.Option.SetpointTemperature"] = {"value": None}
+        self.status["Refrigeration.Common.Setting.EcoMode"] = {"value": None}
+        self.status["Refrigeration.Common.Setting.SabbathMode"] = {"value": None}
+        self.status["Refrigeration.Common.Setting.VacationMode"] = {"value": None}
+        self.status["Refrigeration.Common.Setting.FreshMode"] = {"value": None}
+        self.status["Refrigeration.Common.Setting.BottleCooler.SetpointTemperature"] = {"value": 0}
+        self.status["Refrigeration.Common.Setting.ChillerLeft.SetpointTemperature"] = {"value": 0}
+        self.status["Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature"] = {"value": 0}
+        self.status["Refrigeration.Common.Setting.ChillerRight.SetpointTemperature"] = {"value": 0}
+        self.status["Refrigeration.FridgeFreezer.Setting.SetpointTemperatureFreezer"] = {"value": 0}
+        self.status["Refrigeration.FridgeFreezer.Setting.SetpointTemperatureRefrigerator"] = {"value": 0}
+        self.status["Refrigeration.FridgeFreezer.Setting.SuperModeFreezer"] = {"value": None}
+        self.status["Refrigeration.FridgeFreezer.Setting.SuperModeRefrigerator"] = {"value": None}
 
         # Setup a watchdog and check every 5 minutes for a valid connection
         self.wdt = watch_dog_timer(300.0, self._observer)
@@ -346,6 +358,9 @@ class HomeConnectAppliance:
                 elif event.event == "KEEP-ALIVE":
                     # Watchdog counter reset
                     self.wdt.reset()
+
+                elif event.event == "message":
+                    _LOGGER.debug("Message: %s", event.data)
 
                 else:
                     _LOGGER.error("Invalid event type: %s", event.event)
