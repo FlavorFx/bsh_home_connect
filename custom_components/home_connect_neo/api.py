@@ -22,7 +22,7 @@ class ConfigEntryAuth(HomeConnectAPI):
         self.config_entry = config_entry
         self.session = config_entry_oauth2_flow.OAuth2Session(hass, config_entry, implementation)
         super().__init__(self.session.token)
-        self.devives = []
+        self.devices = []
 
     # def refresh_tokens(self) -> str:
     #    """Refresh and return new Home Connect tokens using Home Assistant OAuth2 session."""

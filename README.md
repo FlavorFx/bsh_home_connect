@@ -82,13 +82,13 @@ cards:
 | `Washer`        | supported         |
 | `Dryer`         | supported |
 | `Washer Dryer`   | supported |
-| `Refrigerator`  | basic |
-| `Wine Cooler`    | basic |
-| `Freezer`       | basic |
-| `Dishwasher`    | basic |
-| `Fridge Freezer` | basic |
-| `Oven`          | basic |
-| `Coffee Maker`   | basic |
+| `Refrigerator`  | supported |
+| `Wine Cooler`    | supported |
+| `Freezer`       | supported |
+| `Dishwasher`    | supported |
+| `Fridge Freezer` | supported |
+| `Oven`          | supported |
+| `Coffee Maker`   | supported |
 | `Hood`          | rudimentary |
 | `Hob`           | rudimentary |
 | `Warming Drawer` | rudimentary |
