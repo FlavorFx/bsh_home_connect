@@ -56,9 +56,18 @@ class HomeConnectSwitch(HomeConnectEntity, SwitchEntity):
             # Resume program if state if Pause
             elif self._key == "BSH.Common.Start" and self._device.appliance.status["BSH.Common.Status.OperationState"].get("value") == "BSH.Common.EnumType.OperationState.Pause":
                 await self.hass.async_add_executor_job(self._device.appliance.set_command, "BSH.Common.Command.ResumeProgram")
+            elif self._key == "Refrigeration.FridgeFreezer.Setting.SuperModeRefrigerator":
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.FridgeFreezer.Setting.SuperModeRefrigerator", True)
             elif self._key == "Refrigeration.FridgeFreezer.Setting.SuperModeFreezer":
-                await self.hass.async_add_executor_job(self._device.appliance.set_settings_with_key, "Refrigeration.FridgeFreezer.Setting.SuperModeFreezer", "true")
-
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.FridgeFreezer.Setting.SuperModeFreezer", True)
+            elif self._key == "Refrigeration.Common.Setting.EcoMode":
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.Common.Setting.EcoMode", True)
+            elif self._key == "Refrigeration.Common.Setting.FreshMode":
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.Common.Setting.FreshMode", True)
+            elif self._key == "Refrigeration.Common.Setting.SabbathMode":
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.Common.Setting.SabbathMode", True)
+            elif self._key == "Refrigeration.Common.Setting.VacationMode":
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.Common.Setting.VacationMode", True)
         except HomeConnectError as err:
             _LOGGER.error("Error while trying to turn on device: %s", err)
             self._state = False
@@ -74,9 +83,18 @@ class HomeConnectSwitch(HomeConnectEntity, SwitchEntity):
             # Pause program if state is Run
             if self._key == "BSH.Common.Start" and self._device.appliance.status["BSH.Common.Status.OperationState"].get("value") == "BSH.Common.EnumType.OperationState.Run":
                 await self.hass.async_add_executor_job(self._device.appliance.set_command, "BSH.Common.Command.PauseProgram")
+            elif self._key == "Refrigeration.FridgeFreezer.Setting.SuperModeRefrigerator":
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.FridgeFreezer.Setting.SuperModeRefrigerator", False)
             elif self._key == "Refrigeration.FridgeFreezer.Setting.SuperModeFreezer":
-                await self.hass.async_add_executor_job(self._device.appliance.set_settings_with_key, "Refrigeration.FridgeFreezer.Setting.SuperModeFreezer", "false")
-
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.FridgeFreezer.Setting.SuperModeFreezer", False)
+            elif self._key == "Refrigeration.Common.Setting.EcoMode":
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.Common.Setting.EcoMode", False)
+            elif self._key == "Refrigeration.Common.Setting.FreshMode":
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.Common.Setting.FreshMode", False)
+            elif self._key == "Refrigeration.Common.Setting.SabbathMode":
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.Common.Setting.SabbathMode", False)
+            elif self._key == "Refrigeration.Common.Setting.VacationMode":
+                await self.hass.async_add_executor_job(self._device.appliance.set_setting_with_key, "Refrigeration.Common.Setting.VacationMode", False)
         except HomeConnectError as err:  # pylint: disable=unused-variable
             _LOGGER.error("Error while trying to turn on device: %s", err)
             self._state = True

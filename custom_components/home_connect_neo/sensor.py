@@ -93,6 +93,9 @@ class HomeConnectSensor(HomeConnectEntity, Entity):
                 "Refrigeration.Common.Setting.WineCompartment3.SetpointTemperature",
                 "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureRefrigerator",
                 "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureFreezer",
+                "ConsumerProducts.CoffeeMaker.Option.CoffeeTemperature",
+                "ConsumerProducts.CoffeeMaker.Option.FillQuantity",
+                "ConsumerProducts.CoffeeMaker.Option.BeanAmount",
             ]:
                 self._state = status[self._key].get("value")
             else:

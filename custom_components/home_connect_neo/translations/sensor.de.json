@@ -97,22 +97,22 @@
             "LaundryCare.Dryer.EnumType.DryingTarget.CupboardDryPlus": "Schranktrocken Plus"
         },
         "home_connect_oven_program": {
-            "Cooking.Oven.Program.HeatingMode.HotAir": "Hot Air",
-            "Cooking.Oven.Program.HeatingMode.HotAirEco": "Hot Air Eco",
-            "Cooking.Oven.Program.HeatingMode.HotAirGrilling": "Hot Air Grilling",
-            "Cooking.Oven.Program.HeatingMode.TopBottomHeating": "Top Bottom Heating",
-            "Cooking.Oven.Program.HeatingMode.TopBottomHeatingEco": "Top Bottom Heating Eco",
-            "Cooking.Oven.Program.HeatingMode.BottomHeating": "Bottom Heating",
-            "Cooking.Oven.Program.HeatingMode.PizzaSetting": "Pizza Setting",
+            "Cooking.Oven.Program.HeatingMode.HotAir": "Heißluft",
+            "Cooking.Oven.Program.HeatingMode.HotAirEco": "Heißluft Eco",
+            "Cooking.Oven.Program.HeatingMode.HotAirGrilling": "Heißluft grillen",
+            "Cooking.Oven.Program.HeatingMode.TopBottomHeating": "Ober- und Unterhitze",
+            "Cooking.Oven.Program.HeatingMode.TopBottomHeatingEco": "Ober- und Unterhitze Eco",
+            "Cooking.Oven.Program.HeatingMode.BottomHeating": "Unterhitze",
+            "Cooking.Oven.Program.HeatingMode.PizzaSetting": "Pizzastufe",
             "Cooking.Oven.Program.HeatingMode.SlowCook": "Slow Cook",
             "Cooking.Oven.Program.HeatingMode.IntensiveHeat": "Intensive Heat",
-            "Cooking.Oven.Program.HeatingMode.KeepWarm": "Keep Warm",
+            "Cooking.Oven.Program.HeatingMode.KeepWarm": "Warmhaltung",
             "Cooking.Oven.Program.HeatingMode.PreheatOvenware": "Preheat Ovenware",
             "Cooking.Oven.Program.HeatingMode.FrozenHeatupSpecial": "Frozen Heatup Special",
             "Cooking.Oven.Program.HeatingMode.Desiccation": "Desiccation",
             "Cooking.Oven.Program.HeatingMode.Defrost": "Defrost",
             "Cooking.Oven.Program.HeatingMode.Proof": "Proof",
-            "Cooking.Oven.Program.HeatingMode.PreHeating": "Pre Heating"
+            "Cooking.Oven.Program.HeatingMode.PreHeating": "Vorheizen"
         },
         "home_connect_dishcare_program": {
             "Dishcare.Dishwasher.Program.Auto1": "Auto 35-45°C",
@@ -137,6 +137,29 @@
             "Dishcare.Dishwasher.Program.MachineCare": "Machine Care",
             "Dishcare.Dishwasher.Program.SteamFresh": "Steam Fresh",
             "Dishcare.Dishwasher.Program.MaximumCleaning": "Maximum Cleaning"
+        },
+        "home_connect_coffee_maker_program": {
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.Espresso": "Espresso",
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.EspressoMacchiato": "Espresso Macchiato",
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.Coffee": "Kaffee",
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.Cappuccino": "Cappuccino",
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.LatteMacchiato": "Latte Macchiato",
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.CaffeLatte": "Caffe Latte"
+        },
+        "home_connect_coffee_maker_temperature": {
+            "ConsumerProducts.CoffeeMaker.EnumType.CoffeeTemperature.90C": "90 °C",
+            "ConsumerProducts.CoffeeMaker.EnumType.CoffeeTemperature.94C": "94 °C",
+            "ConsumerProducts.CoffeeMaker.EnumType.CoffeeTemperature.95C": "95 °C"
+        },
+        "home_connect_coffee_maker_bean_amount": {
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.VeryMild": "Sehr mild",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.Mild": "Mild",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.Normal": "Normal",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.Strong": "Stark",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.VeryStrong": "Sehr stark",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.DoubleShot": "Double Shot",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.DoubleShotPlus": "Double Shot+",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.DoubleShotPlusPlus": "Double Shot++"
         }
     }
 }

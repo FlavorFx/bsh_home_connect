@@ -1,7 +1,7 @@
 """API for Home Connect bound to Home Assistant OAuth."""
 
 import logging
-from homeassistant.const import DEVICE_CLASS_TIMESTAMP, PERCENTAGE, TEMP_CELSIUS, TIME_SECONDS  # pylint: disable=import-error, no-name-in-module
+from homeassistant.const import DEVICE_CLASS_TIMESTAMP, PERCENTAGE, TEMP_CELSIUS, TIME_SECONDS, VOLUME_MILLILITERS  # pylint: disable=import-error, no-name-in-module
 from homeassistant.helpers.dispatcher import dispatcher_send  # pylint: disable=import-error, no-name-in-module
 from .const import SIGNAL_UPDATE_ENTITIES
 from .homeconnect import HomeConnectError
@@ -166,11 +166,11 @@ class Refrigerator(Appliance):
         )
         self.sensors.extend(
             [
-                {"device": self, "key": "Refrigeration.Common.Setting.BottleCooler.SetpointTemperature", "description": "Bottle Coller Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Refrigeration.Common.Setting.ChillerLeft.SetpointTemperature", "description": "Chiller Left Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature", "description": "Chiller Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Refrigeration.Common.Setting.ChillerRight.SetpointTemperature", "description": "Chiller Right Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureRefrigerator", "description": "Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.BottleCooler.SetpointTemperature", "description": "Bottle Coller Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerLeft.SetpointTemperature", "description": "Chiller Left Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature", "description": "Chiller Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerRight.SetpointTemperature", "description": "Chiller Right Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureRefrigerator", "description": "Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
             ]
         )
         self.switches.extend(
@@ -196,9 +196,9 @@ class WineCooler(Appliance):
         )
         self.sensors.extend(
             [
-                {"device": self, "key": "Refrigeration.Common.Setting.WineCompartment.SetpointTemperature", "description": "Temperature 1", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Refrigeration.Common.Setting.WineCompartment2.SetpointTemperature", "description": "Temperature 2", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Refrigeration.Common.Setting.WineCompartment3.SetpointTemperature", "description": "Temperature 3", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.WineCompartment.SetpointTemperature", "description": "Temperature 1", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.WineCompartment2.SetpointTemperature", "description": "Temperature 2", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.WineCompartment3.SetpointTemperature", "description": "Temperature 3", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
             ]
         )
         self.switches.append({"device": self, "key": "Refrigeration.Common.Setting.SabbathMode", "description": "Sabbath Mode"})
@@ -216,7 +216,7 @@ class Freezer(Appliance):
         )
         self.sensors.extend(
             [
-                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureFreezer", "description": "Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureFreezer", "description": "Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
             ]
         )
         self.switches.extend(
@@ -240,12 +240,12 @@ class FridgeFreezer(Appliance):
         )
         self.sensors.extend(
             [
-                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureFreezer", "description": "Freezer Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureRefrigerator", "description": "Refrigerator Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Refrigeration.Common.Setting.BottleCooler.SetpointTemperature", "description": "Bottle Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Refrigeration.Common.Setting.ChillerLeft.SetpointTemperature", "description": "Chiller Left Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature", "description": "Chiller Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Refrigeration.Common.Setting.ChillerRight.SetpointTemperature", "description": "Chiller Right Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureFreezer", "description": "Freezer Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Refrigeration.FridgeFreezer.Setting.SetpointTemperatureRefrigerator", "description": "Refrigerator Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.BottleCooler.SetpointTemperature", "description": "Bottle Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerLeft.SetpointTemperature", "description": "Chiller Left Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerCommon.SetpointTemperature", "description": "Chiller Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Refrigeration.Common.Setting.ChillerRight.SetpointTemperature", "description": "Chiller Right Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
             ]
         )
         self.switches.extend(
@@ -276,11 +276,11 @@ class Oven(Appliance):
                 {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
                 {"device": self, "key": "BSH.Common.Option.RemainingProgramTime", "description": "Remaining Time", "unit": TIME_SECONDS, "icon": "mdi:update", "device_class": None},
                 {"device": self, "key": "BSH.Common.Option.Duration", "description": "Duration", "unit": TIME_SECONDS, "icon": "mdi:update", "device_class": None},
-                {"device": self, "key": "BSH.Common.Option.ElapsedProgramTime", "description": "ElapsedProgramTime", "unit": TIME_SECONDS, "icon": "mdi:update", "device_class": None},
+                {"device": self, "key": "BSH.Common.Option.ElapsedProgramTime", "description": "Elapsed Program Time", "unit": TIME_SECONDS, "icon": "mdi:update", "device_class": None},
                 {"device": self, "key": "BSH.Common.Option.ProgramProgress", "description": "Progress", "unit": PERCENTAGE, "icon": "mdi:progress-clock", "device_class": None},
                 {"device": self, "key": "BSH.Common.Root.SelectedProgram", "description": "Program", "unit": None, "icon": "mdi:format-list-bulleted", "device_class": "home_connect_oven_program"},
-                {"device": self, "key": "Cooking.Oven.Status.CurrentCavityTemperature", "description": "Current Cavity Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
-                {"device": self, "key": "Cooking.Oven.Option.SetpointTemperature", "description": "Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:coolant-temperature", "device_class": None},
+                {"device": self, "key": "Cooking.Oven.Status.CurrentCavityTemperature", "description": "Current Cavity Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
+                {"device": self, "key": "Cooking.Oven.Option.SetpointTemperature", "description": "Temperature", "unit": TEMP_CELSIUS, "icon": "mdi:thermometer", "device_class": None},
             ]
         )
         self.switches.append({"device": self, "key": "BSH.Common.Start", "description": "Start"})
@@ -294,11 +294,16 @@ class CoffeeMaker(Appliance):
         self.binary_sensors.extend(
             [
                 {"device": self, "key": "BSH.Common.Status.RemoteControlStartAllowed", "description": "Remote Control", "device_class": None},
+                {"device": self, "key": "BSH.Common.Status.DoorState", "description": "Door", "device_class": "door"},
             ]
         )
         self.sensors.extend(
             [
                 {"device": self, "key": "BSH.Common.Status.OperationState", "description": "Operation State", "unit": None, "icon": None, "device_class": "home_connect_operation"},
+                {"device": self, "key": "BSH.Common.Root.SelectedProgram", "description": "Program", "unit": None, "icon": "mdi:format-list-bulleted", "device_class": "home_connect_coffee_maker_program"},
+                {"device": self, "key": "ConsumerProducts.CoffeeMaker.Option.CoffeeTemperature", "description": "Temperature", "unit": None, "icon": "mdi:thermometer", "device_class": "home_connect_coffee_maker_temperature"},
+                {"device": self, "key": "ConsumerProducts.CoffeeMaker.Option.FillQuantity", "description": "Fill Quantity", "unit": VOLUME_MILLILITERS, "icon": "mdi:water-outline", "device_class": "None"},
+                {"device": self, "key": "ConsumerProducts.CoffeeMaker.Option.BeanAmount", "description": "Bean Amount", "unit": None, "icon": "mdi:scatter-plot", "device_class": "home_connect_coffee_maker_bean_amount"},
             ]
         )
         self.switches.append({"device": self, "key": "BSH.Common.Start", "description": "Start"})

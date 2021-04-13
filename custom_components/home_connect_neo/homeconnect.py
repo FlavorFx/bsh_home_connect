@@ -520,11 +520,11 @@ class HomeConnectAppliance:
 
         return self.status
 
-    def get_settings_with_key(self, setting_key):
+    def get_setting_with_key(self, setting_key):
         """Get a specific setting"""
         return self.get(f"/settings/{setting_key}")
 
-    def set_settings_with_key(self, setting_key, value):
+    def set_setting_with_key(self, setting_key, value):
         """Change the current setting of `setting_key`."""
         return self.put("/settings/{}".format(setting_key), {"data": {"key": setting_key, "value": value}})
 

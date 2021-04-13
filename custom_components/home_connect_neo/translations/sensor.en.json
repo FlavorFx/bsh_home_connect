@@ -137,6 +137,29 @@
             "Dishcare.Dishwasher.Program.MachineCare": "Machine Care",
             "Dishcare.Dishwasher.Program.SteamFresh": "Steam Fresh",
             "Dishcare.Dishwasher.Program.MaximumCleaning": "Maximum Cleaning"
+        },
+        "home_connect_coffee_maker_program": {
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.Espresso": "Espresso",
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.EspressoMacchiato": "Espresso Macchiato",
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.Coffee": "Coffee",
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.Cappuccino": "Cappuccino",
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.LatteMacchiato": "Latte Macchiato",
+            "ConsumerProducts.CoffeeMaker.Program.Beverage.CaffeLatte": "Caffe Latte"
+        },
+        "home_connect_coffee_maker_temperature": {
+            "ConsumerProducts.CoffeeMaker.EnumType.CoffeeTemperature.90C": "90 °C",
+            "ConsumerProducts.CoffeeMaker.EnumType.CoffeeTemperature.94C": "94 °C",
+            "ConsumerProducts.CoffeeMaker.EnumType.CoffeeTemperature.95C": "95 °C"
+        },
+        "home_connect_coffee_maker_bean_amount": {
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.VeryMild": "Very mild",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.Mild": "Mild",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.Normal": "Normal",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.Strong": "Strong",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.VeryStrong": "Very Strong",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.DoubleShot": "Double Shot",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.DoubleShotPlus": "Double Shot+",
+            "ConsumerProducts.CoffeeMaker.EnumType.BeanAmount.DoubleShotPlusPlus": "Double Shot++"
         }
     }
 }
