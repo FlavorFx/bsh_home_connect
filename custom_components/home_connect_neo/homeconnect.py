@@ -284,6 +284,10 @@ class HomeConnectAppliance:
 
         try:
             for event in sse:
+                # Server connection is broken but a dummy messages was sent. Ignore it.
+                if event.event == "message":
+                    break
+
                 _LOGGER.debug("Handle event: %s", event.event)
 
                 if event.event == "NOTIFY":  # e.g. Progress update
@@ -358,9 +362,6 @@ class HomeConnectAppliance:
                 elif event.event == "KEEP-ALIVE":
                     # Watchdog counter reset
                     self.wdt.reset()
-
-                elif event.event == "message":
-                    _LOGGER.debug("Message: %s", event.data)
 
                 else:
                     _LOGGER.error("Invalid event type: %s", event.event)
