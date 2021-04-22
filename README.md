@@ -21,6 +21,51 @@ The `home connect neo` integration is a component for Home Assistant to enable t
 
 4. Install the new integration through _Home Assistant -> Configuration -> Integrations_. click "+" and search for "Home Connect neo". Enter your Client ID and Client Secret. After this open the external Home Connect Web site, enter your login credentials and accept the terms and conditions. Than close the external web site and return to Home Assistant. Assign a room to the appliance.
 
+## Services
+
+Program:
+```
+device_name: Oven
+key:
+value: 230
+```
+Option:
+```
+device_name: Oven
+key: Cooking.Oven.Option.SetpointTemperature
+value: 230
+```
+Setting
+```
+device_name: Oven
+setting:
+```
+Command
+```
+device_name: Oven
+command:
+```
+
+## Supported devices
+
+| Appliance       | Description       |
+| --------------- | ----------------- |
+| `Washer`        | supported         |
+| `Dryer`         | supported |
+| `Washer Dryer`   | supported |
+| `Refrigerator`  | supported |
+| `Wine Cooler`    | supported |
+| `Freezer`       | supported |
+| `Dishwasher`    | supported |
+| `Fridge Freezer` | supported |
+| `Oven`          | supported |
+| `Coffee Maker`   | supported |
+| `Hood`          | rudimentary |
+| `Hob`           | rudimentary |
+| `Warming Drawer` | rudimentary |
+| `Cleaning Robot` | not supported yet |
+| `Cook Processor` | not supported yet |
+
 ## Lovelace card configuration
 
 The card requires the following mods:
@@ -74,26 +119,6 @@ cards:
 ```
 
 ![Example Lovelace Card](card.png)
-
-## Supported devices
-
-| Appliance       | Description       |
-| --------------- | ----------------- |
-| `Washer`        | supported         |
-| `Dryer`         | supported |
-| `Washer Dryer`   | supported |
-| `Refrigerator`  | supported |
-| `Wine Cooler`    | supported |
-| `Freezer`       | supported |
-| `Dishwasher`    | supported |
-| `Fridge Freezer` | supported |
-| `Oven`          | supported |
-| `Coffee Maker`   | supported |
-| `Hood`          | rudimentary |
-| `Hob`           | rudimentary |
-| `Warming Drawer` | rudimentary |
-| `Cleaning Robot` | not supported yet |
-| `Cook Processor` | not supported yet |
 
 ## Debugging
 

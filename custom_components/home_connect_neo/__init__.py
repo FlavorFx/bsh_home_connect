@@ -6,9 +6,10 @@ import voluptuous as vol
 from typing import Optional
 from requests import HTTPError
 from homeassistant.config_entries import ConfigEntry  # pylint: disable=import-error, no-name-in-module
-from homeassistant.const import CONF_CLIENT_ID, CONF_CLIENT_SECRET, ATTR_ENTITY_ID  # pylint: disable=import-error, no-name-in-module
+from homeassistant.const import CONF_CLIENT_ID, CONF_CLIENT_SECRET, ATTR_DEVICE_ID  # pylint: disable=import-error, no-name-in-module
 from homeassistant.core import HomeAssistant  # pylint: disable=import-error, no-name-in-module
 from homeassistant.helpers import aiohttp_client, config_entry_oauth2_flow, config_validation as cv  # pylint: disable=import-error, no-name-in-module
+from homeassistant.helpers import device_registry  # pylint: disable=import-error, no-name-in-module
 from .api import ConfigEntryAuth
 from .config_flow import OAuth2FlowHandler
 from .const import DOMAIN, BASE_URL, ENDPOINT_AUTHORIZE, ENDPOINT_TOKEN
@@ -16,20 +17,15 @@ from .device import Appliance, Washer, Dryer, Dishwasher, Freezer, FridgeFreezer
 
 _LOGGER = logging.getLogger(__name__)
 
-CONFIG_SCHEMA = vol.Schema({DOMAIN: vol.Schema({vol.Required(CONF_CLIENT_ID): cv.string, vol.Required(CONF_CLIENT_SECRET): cv.string})}, extra=vol.ALLOW_EXTRA)
+SERVICE_OPTION_SCHEMA = vol.Schema(
+    {
+        vol.Required("device_name"): cv.string,
+        vol.Required("key"): cv.string,
+        vol.Required("value"): cv.string,
+    }
+)
 
 PLATFORMS = ["binary_sensor", "sensor", "switch", "light"]
-
-SERVICE_SELECT = "select_program"
-SERVICE_PAUSE = "pause_program"
-SERVICE_RESUME = "resume_program"
-SERVICE_OPTION_ACTIVE = "set_option_active"
-SERVICE_OPTION_SELECTED = "set_option_selected"
-SERVICE_SETTING = "change_setting"
-
-SERVICE_SETTING_SCHEMA = vol.Schema({vol.Required(ATTR_ENTITY_ID): cv.entity_id, vol.Required("key"): str, vol.Required("value"): vol.Coerce(str)})
-SERVICE_PROGRAM_SCHEMA = vol.Schema({vol.Required(ATTR_ENTITY_ID): cv.entity_id, vol.Required("program"): str})
-SERVICE_COMMAND_SCHEMA = vol.Schema({vol.Required(ATTR_ENTITY_ID): cv.entity_id})
 
 
 async def async_setup(hass: HomeAssistant, config: dict):
@@ -40,73 +36,39 @@ async def async_setup(hass: HomeAssistant, config: dict):
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Set up Home Connect from a config entry."""
 
-    def _get_appliance_by_entity_id(hass: HomeAssistant, entity_id: str) -> Optional[Appliance]:
-        """Return a Home Connect appliance instance given an entity_id."""
-        for hc in hass.data[DOMAIN].values():
-            for dev_dict in hc.devices:
-                device = dev_dict["device"]
-                for entity in device.entities:
-                    if entity.entity_id == entity_id:
-                        return device.appliance
-        _LOGGER.error("Appliance for %s not found.", entity_id)
-        return None
-
-    async def _async_service_program(call, method):
-        """Generic callback for services taking a program."""
-        program = call.data["program"]
-        entity_id = call.data[ATTR_ENTITY_ID]
-        appliance = _get_appliance_by_entity_id(hass, entity_id)
-        if appliance is not None:
-            await hass.async_add_executor_job(getattr(appliance, method), program)
-
-    async def _async_service_command(call, command):
-        """Generic callback for services executing a command."""
-        entity_id = call.data[ATTR_ENTITY_ID]
-        appliance = _get_appliance_by_entity_id(hass, entity_id)
-        if appliance is not None:
-            await hass.async_add_executor_job(appliance.execute_command, command)
-
-    async def _async_service_key_value(call, method):
-        """Generic callback for services taking a key and value."""
-        key = call.data["key"]
-        value = call.data["value"]
-        entity_id = call.data[ATTR_ENTITY_ID]
-        appliance = _get_appliance_by_entity_id(hass, entity_id)
-        if appliance is not None:
-            await hass.async_add_executor_job(getattr(appliance, method), key, value)
-
-    async def async_service_option_active(call):
-        """Service for setting an option for an active program."""
-        await _async_service_key_value(call, "set_options_active_program")
-
-    async def async_service_option_selected(call):
-        """Service for setting an option for a selected program."""
-        await _async_service_key_value(call, "set_options_selected_program")
-
-    async def async_service_pause(call):
-        """Service for pausing a program."""
-        await _async_service_command(call, "BSH.Common.Command.PauseProgram")
-
-    async def async_service_resume(call):
-        """Service for resuming a paused program."""
-        await _async_service_command(call, "BSH.Common.Command.ResumeProgram")
-
-    async def async_service_select(call):
-        """Service for selecting a program."""
-        await _async_service_program(call, "select_program")
-
-    async def async_service_setting(call):
-        """Service for changing a setting."""
-        await _async_service_key_value(call, "set_setting")
-
     hass.data[DOMAIN] = {}
 
-    hass.services.async_register(DOMAIN, SERVICE_OPTION_ACTIVE, async_service_option_active, schema=SERVICE_SETTING_SCHEMA)
-    hass.services.async_register(DOMAIN, SERVICE_OPTION_SELECTED, async_service_option_selected, schema=SERVICE_SETTING_SCHEMA)
-    hass.services.async_register(DOMAIN, SERVICE_SETTING, async_service_setting, schema=SERVICE_SETTING_SCHEMA)
-    hass.services.async_register(DOMAIN, SERVICE_PAUSE, async_service_pause, schema=SERVICE_COMMAND_SCHEMA)
-    hass.services.async_register(DOMAIN, SERVICE_RESUME, async_service_resume, schema=SERVICE_COMMAND_SCHEMA)
-    hass.services.async_register(DOMAIN, SERVICE_SELECT, async_service_select, schema=SERVICE_PROGRAM_SCHEMA)
+    async def async_service_option(call):
+        device_name = call.data["device_name"]
+        key = call.data["key"]
+        value = call.data["value"]
+
+        _haId = None
+        registry = await device_registry.async_get_registry(hass)
+        for device in registry.devices.values():
+            for identifier in device.identifiers:
+                if identifier[0] == DOMAIN and device.name == device_name:
+                    _haId = identifier[1]
+                    break
+            else:
+                continue
+            break
+
+        _appliance = None
+        if _haId is not None:
+            for hc in hass.data[DOMAIN].values():
+                for dev_dict in hc.devices:
+                    if dev_dict.appliance.haId == _haId:
+                        _appliance = dev_dict.appliance
+                        break
+                else:
+                    continue
+                break
+
+        if _appliance is not None:
+            await hass.async_add_executor_job(getattr(_appliance, "set_programs_active_options_with_key"), key, value)
+
+    hass.services.async_register(DOMAIN, "change_options", async_service_option, schema=SERVICE_OPTION_SCHEMA)
 
     client_id = entry.data.get(CONF_CLIENT_ID)
     client_secret = entry.data.get(CONF_CLIENT_SECRET)
