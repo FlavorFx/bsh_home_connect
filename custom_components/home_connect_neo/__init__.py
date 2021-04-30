@@ -17,13 +17,10 @@ from .device import Appliance, Washer, Dryer, Dishwasher, Freezer, FridgeFreezer
 
 _LOGGER = logging.getLogger(__name__)
 
-SERVICE_OPTION_SCHEMA = vol.Schema(
-    {
-        vol.Required("device_name"): cv.string,
-        vol.Required("key"): cv.string,
-        vol.Required("value"): cv.string,
-    }
-)
+SERVICE_PROGRAM_SCHEMA = vol.Schema({vol.Required("device_name"): cv.string, vol.Required("key"): cv.string})
+SERVICE_OPTION_SCHEMA = vol.Schema({vol.Required("device_name"): cv.string, vol.Required("key"): cv.string, vol.Required("value"): cv.positive_int})
+SERVICE_SETTING_SCHEMA = vol.Schema({vol.Required("device_name"): cv.string, vol.Required("key"): cv.string, vol.Required("value"): cv.string})
+SERVICE_COMMAND_SCHEMA = vol.Schema({vol.Required("device_name"): cv.string, vol.Required("key"): cv.string})
 
 PLATFORMS = ["binary_sensor", "sensor", "switch", "light"]
 
@@ -38,37 +35,71 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
     hass.data[DOMAIN] = {}
 
-    async def async_service_option(call):
-        device_name = call.data["device_name"]
-        key = call.data["key"]
-        value = call.data["value"]
-
-        _haId = None
+    async def async_get_appliance(name: str):
+        """Retrieve appliance from device name."""
         registry = await device_registry.async_get_registry(hass)
+
+        haId = None
         for device in registry.devices.values():
             for identifier in device.identifiers:
-                if identifier[0] == DOMAIN and device.name == device_name:
-                    _haId = identifier[1]
+                if identifier[0] == DOMAIN and device.name == name:
+                    haId = identifier[1]
                     break
             else:
                 continue
             break
 
-        _appliance = None
-        if _haId is not None:
+        appliance = None
+        if haId is not None:
             for hc in hass.data[DOMAIN].values():
                 for dev_dict in hc.devices:
-                    if dev_dict.appliance.haId == _haId:
-                        _appliance = dev_dict.appliance
+                    if dev_dict.appliance.haId == haId:
+                        appliance = dev_dict.appliance
                         break
                 else:
                     continue
                 break
 
-        if _appliance is not None:
-            await hass.async_add_executor_job(getattr(_appliance, "set_programs_active_options_with_key"), key, value)
+        return appliance
 
-    hass.services.async_register(DOMAIN, "change_options", async_service_option, schema=SERVICE_OPTION_SCHEMA)
+    async def async_service_program(call):
+        """Service call for program selection."""
+        device_name = call.data["device_name"]
+        program_key = call.data["key"]
+        appliance = await async_get_appliance(device_name)
+        if appliance is not None:
+            await hass.async_add_executor_job(getattr(appliance, "set_programs_selected"), program_key)
+
+    async def async_service_option(call):
+        """Service call for option selection."""
+        device_name = call.data["device_name"]
+        option_key = call.data["key"]
+        value = call.data["value"]
+        appliance = await async_get_appliance(device_name)
+        if appliance is not None:
+            await hass.async_add_executor_job(getattr(appliance, "set_programs_active_options_with_key"), option_key, value)
+
+    async def async_service_setting(call):
+        """Service call to set settings."""
+        device_name = call.data["device_name"]
+        setting_key = call.data["key"]
+        value = call.data["value"]
+        appliance = await async_get_appliance(device_name)
+        if appliance is not None:
+            await hass.async_add_executor_job(getattr(appliance, "set_setting_with_key"), setting_key, value)
+
+    async def async_service_command(call):
+        """Service call to execute command."""
+        device_name = call.data["device_name"]
+        command_key = call.data["key"]
+        appliance = await async_get_appliance(device_name)
+        if appliance is not None:
+            await hass.async_add_executor_job(getattr(appliance, "set_command"), command_key)
+
+    hass.services.async_register(DOMAIN, "program", async_service_program, schema=SERVICE_PROGRAM_SCHEMA)
+    hass.services.async_register(DOMAIN, "option", async_service_option, schema=SERVICE_OPTION_SCHEMA)
+    hass.services.async_register(DOMAIN, "setting", async_service_setting, schema=SERVICE_SETTING_SCHEMA)
+    hass.services.async_register(DOMAIN, "command", async_service_command, schema=SERVICE_COMMAND_SCHEMA)
 
     client_id = entry.data.get(CONF_CLIENT_ID)
     client_secret = entry.data.get(CONF_CLIENT_SECRET)

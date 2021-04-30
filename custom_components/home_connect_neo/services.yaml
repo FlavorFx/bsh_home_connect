@@ -1,6 +1,17 @@
-change_options:
-  name: Change Options
-  description: Changes a option.
+program:
+  name: Change Program
+  description: Changes a Home Connect program.
+  fields:
+    device_name:
+      description: Name of the home appliance.
+      example: "Washer Simulator"
+    key:
+      description: Program key.
+      example: "LaundryCare.Washer.Program.Wool"
+
+option:
+  name: Change Option
+  description: Changes a Home Connect option.
   fields:
     device_name:
       description: Name of the home appliance.
@@ -11,3 +22,28 @@ change_options:
     value:
       description: Value of the option.
       example: 230
+
+setting:
+  name: Change Setting
+  description: Changes a Home Connect setting.
+  fields:
+    device_name:
+      description: Name of the home appliance.
+      example: "FridgeFreezer Simulator"
+    key:
+      description: Setting key.
+      example: "Refrigeration.FridgeFreezer.Setting.SuperModeRefrigerator"
+    value:
+      description: Value of the option.
+      example: true
+
+command:
+  name: Execute Command
+  description: Execute a Home Connect Command.
+  fields:
+    device_name:
+      description: Name of the home appliance.
+      example: "Oven Simulator"
+    key:
+      description: Command key.
+      example: "BSH.Common.Command.PauseProgram"
