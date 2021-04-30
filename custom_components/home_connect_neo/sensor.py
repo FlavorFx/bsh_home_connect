@@ -98,6 +98,4 @@ class HomeConnectSensor(HomeConnectEntity, Entity):
                 "ConsumerProducts.CoffeeMaker.Option.BeanAmount",
             ]:
                 self._state = status[self._key].get("value")
-            else:
-                _LOGGER.warning("Unexpected value for key: %s", self._key)
             # _LOGGER.debug("Updated, new state: %s", self._state)

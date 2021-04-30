@@ -167,6 +167,3 @@ class HomeConnectLight(HomeConnectEntity, LightEntity):
                 else:
                     self._hs_color = None
                     self._brightness = None
-
-            else:
-                _LOGGER.warning("Unexpected value for key: %s", self._key)
