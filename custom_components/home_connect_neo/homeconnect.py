@@ -284,9 +284,8 @@ class HomeConnectAppliance:
 
         try:
             for event in sse:
-                _LOGGER.debug("Handle event: %s", event.event)
-
                 if event.event == "NOTIFY":  # e.g. Progress update
+                    _LOGGER.debug("Handle event: %s", event.event)
                     # set home connect applieance to connected
                     self.is_connected = True
                     # load event data
@@ -302,6 +301,7 @@ class HomeConnectAppliance:
                     self.wdt.reset()
 
                 elif event.event == "STATUS":  # e.g. Program selection
+                    _LOGGER.debug("Handle event: %s", event.event)
                     # set home connect applieance to connected
                     self.is_connected = True
                     # load event data
@@ -317,6 +317,7 @@ class HomeConnectAppliance:
                     self.wdt.reset()
 
                 elif event.event == "EVENT":  # e.g. Program finished
+                    _LOGGER.debug("Handle event: %s", event.event)
                     # set home connect applieance to connected
                     self.is_connected = True
                     # load event data
@@ -336,6 +337,7 @@ class HomeConnectAppliance:
                     self.wdt.reset()
 
                 elif event.event == "CONNECTED":
+                    _LOGGER.debug("Handle event: %s", event.event)
                     # set home connect applieance to connected
                     self.is_connected = True
                     # update aplienace properties like Seleced Program, Spin speed, etc.
@@ -347,6 +349,7 @@ class HomeConnectAppliance:
                     self.wdt.resume()
 
                 elif event.event == "DISCONNECTED":
+                    _LOGGER.debug("Handle event: %s", event.event)
                     # set home connect applieance to disconnected
                     self.is_connected = False
                     # call callback function from home assistance home connect devices class
