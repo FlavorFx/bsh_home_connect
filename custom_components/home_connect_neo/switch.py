@@ -49,11 +49,11 @@ class HomeConnectSwitch(HomeConnectEntity, SwitchEntity):
         _LOGGER.debug("Tried to switch on %s", self.name)
 
         try:
-            # Start selected program if door is closed, remmote is enables and state is ready or finished
+            # Start selected program if door is closed, remmote is enables and state is Ready or Finished
             if self._key == "BSH.Common.Start" and self._device.appliance.status["BSH.Common.Status.RemoteControlStartAllowed"].get("value") and self._device.appliance.status["BSH.Common.Status.DoorState"].get("value") in ["BSH.Common.EnumType.DoorState.Closed", "BSH.Common.EnumType.DoorState.Locked"] and self._device.appliance.status["BSH.Common.Status.OperationState"].get("value") in ["BSH.Common.EnumType.OperationState.Ready", "BSH.Common.EnumType.OperationState.Finished"]:
                 program = self._device.appliance.status["BSH.Common.Root.SelectedProgram"].get("value")
                 await self.hass.async_add_executor_job(self._device.appliance.set_programs_active, program)
-            # Resume program if state if Pause
+            # Resume program if state is Pause
             elif self._key == "BSH.Common.Start" and self._device.appliance.status["BSH.Common.Status.OperationState"].get("value") == "BSH.Common.EnumType.OperationState.Pause":
                 await self.hass.async_add_executor_job(self._device.appliance.set_command, "BSH.Common.Command.ResumeProgram")
             elif self._key == "Refrigeration.FridgeFreezer.Setting.SuperModeRefrigerator":
