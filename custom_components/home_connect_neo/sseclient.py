@@ -5,11 +5,9 @@ import codecs
 import logging
 import re
 import time
-import warnings
 import http
 import socket
 import requests
-from oauthlib.oauth2 import TokenExpiredError
 from requests.exceptions import HTTPError
 
 # Technically, we should support streams that mix line endings.  This regex, however, assumes that a system will provide consistent line endings.
@@ -146,7 +144,7 @@ class Event(object):
 
     @classmethod
     def parse(cls, raw):
-        """ Given a possibly-multiline string representing an SSE message, parse it and return a Event object. """
+        """Given a possibly-multiline string representing an SSE message, parse it and return a Event object."""
         msg = cls()
         for line in raw.splitlines():
             m = cls.sse_line_pattern.match(line)

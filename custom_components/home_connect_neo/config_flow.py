@@ -2,7 +2,6 @@
 
 import logging
 import voluptuous as vol
-from homeassistant import config_entries  # pylint: disable=import-error, no-name-in-module
 from homeassistant.helpers import config_entry_oauth2_flow  # pylint: disable=import-error, no-name-in-module
 from homeassistant.const import CONF_CLIENT_ID, CONF_CLIENT_SECRET  # pylint: disable=import-error, no-name-in-module
 from .const import DOMAIN, NAME, BASE_URL, ENDPOINT_AUTHORIZE, ENDPOINT_TOKEN
@@ -12,7 +11,6 @@ class OAuth2FlowHandler(config_entry_oauth2_flow.AbstractOAuth2FlowHandler, doma
     """Config flow to handle Home Connect OAuth2 authentication."""
 
     DOMAIN = DOMAIN
-    CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_PUSH
 
     @property
     def logger(self) -> logging.Logger:

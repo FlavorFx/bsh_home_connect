@@ -2,8 +2,6 @@
 
 import json
 import logging
-import os
-import time
 from threading import Event, Thread
 from typing import Callable, Dict, Optional, Union
 from oauthlib.oauth2 import TokenExpiredError

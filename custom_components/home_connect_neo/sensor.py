@@ -2,7 +2,7 @@
 
 import logging
 from homeassistant.helpers.entity import Entity  # pylint: disable=import-error, no-name-in-module
-from .const import DOMAIN, SIGNAL_UPDATE_ENTITIES
+from .const import DOMAIN
 from .entity import HomeConnectEntity
 
 _LOGGER = logging.getLogger(__name__)

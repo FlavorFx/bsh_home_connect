@@ -2,7 +2,7 @@
 
 import logging
 from homeassistant.components.switch import SwitchEntity  # pylint: disable=import-error, no-name-in-module
-from .const import DOMAIN, SIGNAL_UPDATE_ENTITIES
+from .const import DOMAIN
 from .entity import HomeConnectEntity
 from .homeconnect import HomeConnectError
 

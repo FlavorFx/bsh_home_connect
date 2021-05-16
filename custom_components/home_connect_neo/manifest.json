@@ -9,5 +9,6 @@
   "homekit": {},
   "dependencies": ["http"],
   "codeowners": ["@flavorfx"],
-  "version": "0.1.1"
+  "iot_class": "cloud_push",
+  "version": "0.1.2"
 }

@@ -1,10 +1,9 @@
 """API for Home Connect bound to Home Assistant OAuth."""
 
 import logging
-from homeassistant.const import DEVICE_CLASS_TIMESTAMP, PERCENTAGE, TEMP_CELSIUS, TIME_SECONDS, VOLUME_MILLILITERS  # pylint: disable=import-error, no-name-in-module
+from homeassistant.const import PERCENTAGE, TEMP_CELSIUS, TIME_SECONDS, VOLUME_MILLILITERS  # pylint: disable=import-error, no-name-in-module
 from homeassistant.helpers.dispatcher import dispatcher_send  # pylint: disable=import-error, no-name-in-module
 from .const import SIGNAL_UPDATE_ENTITIES
-from .homeconnect import HomeConnectError
 
 _LOGGER = logging.getLogger(__name__)
 

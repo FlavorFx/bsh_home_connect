@@ -2,12 +2,9 @@
 
 import logging
 from asyncio import run_coroutine_threadsafe
-from aiohttp import ClientSession
 from homeassistant import config_entries, core  # pylint: disable=import-error, no-name-in-module
-from homeassistant.const import DEVICE_CLASS_TIMESTAMP, PERCENTAGE, TIME_SECONDS  # pylint: disable=import-error, no-name-in-module
 from homeassistant.helpers import config_entry_oauth2_flow  # pylint: disable=import-error, no-name-in-module
-from homeassistant.helpers.dispatcher import dispatcher_send  # pylint: disable=import-error, no-name-in-module
-from .homeconnect import HomeConnectAPI, HomeConnectError
+from .homeconnect import HomeConnectAPI
 
 _LOGGER = logging.getLogger(__name__)
 

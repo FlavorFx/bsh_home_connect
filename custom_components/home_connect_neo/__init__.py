@@ -1,19 +1,16 @@
 """The Home Connect integration."""
 
-import asyncio
 import logging
 import voluptuous as vol
-from typing import Optional
-from requests import HTTPError
 from homeassistant.config_entries import ConfigEntry  # pylint: disable=import-error, no-name-in-module
-from homeassistant.const import CONF_CLIENT_ID, CONF_CLIENT_SECRET, ATTR_DEVICE_ID  # pylint: disable=import-error, no-name-in-module
+from homeassistant.const import CONF_CLIENT_ID, CONF_CLIENT_SECRET  # pylint: disable=import-error, no-name-in-module
 from homeassistant.core import HomeAssistant  # pylint: disable=import-error, no-name-in-module
-from homeassistant.helpers import aiohttp_client, config_entry_oauth2_flow, config_validation as cv  # pylint: disable=import-error, no-name-in-module
+from homeassistant.helpers import config_entry_oauth2_flow, config_validation as cv  # pylint: disable=import-error, no-name-in-module
 from homeassistant.helpers import device_registry  # pylint: disable=import-error, no-name-in-module
 from .api import ConfigEntryAuth
 from .config_flow import OAuth2FlowHandler
 from .const import DOMAIN, BASE_URL, ENDPOINT_AUTHORIZE, ENDPOINT_TOKEN
-from .device import Appliance, Washer, Dryer, Dishwasher, Freezer, FridgeFreezer, Oven, CoffeeMaker, Hood, Hob, WasherDryer, Refrigerator, WineCooler
+from .device import Washer, Dryer, Dishwasher, Freezer, FridgeFreezer, Oven, CoffeeMaker, Hood, Hob, WasherDryer, Refrigerator, WineCooler
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -172,8 +169,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     # Save all found devices in home connect object
     home_connect.devices = devices
 
-    for component in PLATFORMS:
-        hass.async_create_task(hass.config_entries.async_forward_entry_setup(entry, component))
+    hass.config_entries.async_setup_platforms(entry, PLATFORMS)
 
     return True
 
@@ -181,7 +177,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Unload a config entry."""
 
-    unload_ok = all(await asyncio.gather(*[hass.config_entries.async_forward_entry_unload(entry, component) for component in PLATFORMS]))
+    unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
